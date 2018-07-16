@@ -23,7 +23,7 @@ app.controller('menu', function($scope, $http) {
             angular.forEach($scope.data, function(result, key) {
                 var i;
                 for (i = 0; i < key.length; i++) {
-                    console.log( result.i.list);
+
                 }
 
             });

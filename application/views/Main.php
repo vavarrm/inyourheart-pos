@@ -17,8 +17,7 @@ if (isset($_SESSION['id'])) {
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Main</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-    <script src="/js/myApp.js"></script>
+  
     <?php
     include ('layout/header.php');
     include('layout/style.php');
@@ -102,11 +101,13 @@ if (isset($_SESSION['id'])) {
                             <tr>
                                 <th>Name</th>
                                 <th style="width:50px">QTY</th>
+                                <th style="width:120px">Price</th>
                                 <th style="width: 50px">Action</th>
                             </tr>
                             </table>
-                        <table class="this-table this-striped" id="list">
-                        <div ondragenter="dragEnter(event)" ondragleave="dragLeave(event)" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <table class="this-table this-striped" id="myTable" >
+                            <tbody id="list">
+                            </tbody>
 
                         </div>
 
