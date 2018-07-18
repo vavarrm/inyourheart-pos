@@ -47,7 +47,7 @@
     </div>
 </div>
 </div>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
 <script>
     $(document).ready(function(){});
     function this_open() {

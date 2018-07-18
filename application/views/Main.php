@@ -16,7 +16,7 @@ if (isset($_SESSION['id'])) {
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Main</title>
-    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery/1.12.4/jquery.min.js"></script>
     <?php
     include ('layout/header.php');
     include('layout/style.php');
@@ -53,11 +53,16 @@ if (isset($_SESSION['id'])) {
                         <div class="this-container this-padding-top this-margin-top">
                             <div class="this-container this-padding this-text-black ">
                                 <div class="row">
+									<div >
+									  <select class="form-control" id="category-select">
+										
+									  </select>
+									</div>
+									<br>
+
                                     <div class="col-sm-12">
                                         <div  id="prolist"></div>
                                     </div>
-
-
                                 </div>
                             </div>
                         </div>
@@ -83,32 +88,31 @@ if (isset($_SESSION['id'])) {
 
                     </div>
                     <div class="this-container this-border-bottom this-pale-blue this-padding  " >
-                        <div  class="this-large this-left this-padding "> BILL NO :000001 </div>
-                        <div  class="this-large this-right this-padding "> TABLE NO :01 </div>
+                        <div  class="this-large this-left this-padding "> TABLE NO :01 </div>
                     </div>
                     <div class="this-container" style="min-height: 70%;height: 540px; overflow:scroll;padding: 0px">
-                        <table class="this-table this-striped this-border-bottom this-metro-dark-red" >
-                            <tr>
-                                <th>Name</th>
-                                <th style="width:30px">QTY</th>
-                                <th style="width:80px">Price</th>
-                                <th style="width: 40px">Action</th>
-                            </tr>
-                            </table>
-                        <table class="this-table this-striped">
-                            <tbody id="list">
+                        <table class="this-table this-striped this-border-bottom " >
+                            <thead>
+								<tr class="this-metro-dark-red">
+									<th >Name</th>
+									<th>QTY</th>
+									<th >Price</th>
+									<th >SubTotal</th>
+									<th >Action</th>
+								</tr>
+							</thead>
+							<tbody id="list">
                             </tbody>
-
-                        </div>
-
-                        </table>
+						</table>
                     </div>
                     <div class="this-container this-border-top this-center " style="margin: 0px; height:100px;
                     padding: 0px;">
                         <div class="this-container this-border-bottom this-center this-padding this-metro-dark-red
-                        this-text-white" style="margin: 0px;height:40px;position: relative; font-weight: bold">
-                            <div class=" this-large col-sm-5">Total : </div>
-                            <div class="this-large col-sm-5" id="total">0.0</div>
+                        this-text-white" style="margin: 0px;height:80px;position: relative; font-weight: bold">
+                            <div class=" this-large col-sm-5">Total USD： </div>
+                            <div class="this-large col-sm-5" id="total">0.00</div>
+                            <div class="this-large col-sm-5">Total KHR：</div>
+                            <div class="this-large col-sm-5" id="total-khr">0</div>
                         </div>
                         <div class="this-container this-border-bottom this-padding-0 this-center" style="margin: 0px">
 
@@ -128,7 +132,7 @@ if (isset($_SESSION['id'])) {
         </div>
     </div>
 </section>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
 <!-- Latest compiled JavaScript -->
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="/js/script.js"></script>

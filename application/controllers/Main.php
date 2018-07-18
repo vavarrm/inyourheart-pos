@@ -6,12 +6,6 @@ class Main extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->Model('User_Model','user');
-        $this->load->Model('Category_Model','category');
-        $this->load->model('Product_Model','product');
-        $this->load->model('Customer_Model','customer');
-        $this->load->model('Order_Model','order');
-        $this->load->library('form_validation');
         $this->load->helper('url');
         $this->load->library(array('session'));
     }
@@ -19,10 +13,6 @@ class Main extends CI_Controller {
 
     public function index()
 	{
-        $pro=$this->product-> getProduct();
-        $data=$this->category->getAll();
-        //$pro=$this->product-> getProduct();
-        $NoInvoice=$this->order->getTopInvoice();
         $cat=array(
             'cat'=>$data,
             'pro'=>$pro,
