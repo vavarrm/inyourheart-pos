@@ -84,7 +84,7 @@ if (isset($_SESSION['id'])) {
                                                     <div class="col-xs-4 col-md-2 col-sm-2 this-padding this-text-black
                                                 this-center">
                                                         <div class="this-">
-                                                            <img src="http://www.myiconfinder.com/uploads/iconsets/256-256-bdb6f1f690f53ec70da10b4eae374f88.png"
+                                                            <img src="/images/table.png"
                                                                  class="img-responsive
 "/>
                                                         </div>

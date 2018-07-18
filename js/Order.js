@@ -62,7 +62,6 @@ function Order(id,inv) {
 }
 
 function delOrdre(id) {
-
         $.ajax({
             type: "get",
             url: '/'+deleteOrder+"?delId="+id,
@@ -79,10 +78,6 @@ function delOrdre(id) {
     $("#rowOrder"+id).remove();
 }
 
-
-$.post( "http://inyourheart.beta.com/Api/Api/getMenu", function( data ) {
-    console.log(data);
-},'json');
 
 
 

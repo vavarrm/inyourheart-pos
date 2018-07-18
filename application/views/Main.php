@@ -5,7 +5,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!doctype html>
 <html lang="en">
 <?php
-
 if (isset($_SESSION['id'])) {
     $id =$_SESSION['id'];
     $Acc =$_SESSION['acc'];
@@ -17,7 +16,7 @@ if (isset($_SESSION['id'])) {
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Main</title>
-  
+    <script src="/js/jquery.min.js"></script>
     <?php
     include ('layout/header.php');
     include('layout/style.php');
@@ -34,16 +33,15 @@ if (isset($_SESSION['id'])) {
     <!-- Page Content -->
     <div id="main" class=" this-container this-padding-0 " style="margin-left:7%;">
         <div class="row">
-
             <div class="col-sm-12 this-padding-0">
-                <div class=" col-xs-8 col-md-8 col-sm-8 this-metro-dark-red this-padding header-top this-border-bottom
+                <div class=" col-xs-7 col-md-7 col-sm-7 this-metro-dark-red this-padding header-top this-border-bottom
                 this-padding-0">
                     <div class=" this-bar-block this-animate-left " style="display:none;" id="mySidebar">
                             <button  class="this-bar-item this-metro-dark-red this-large">
                                 <i class="fa fa-arrow-circle-left" style="font-size:24px" onclick="w3_close()">  <span> Category </span> </i>
                             </button>
                         <br/>
-                           <div class="this-container">
+                           <div class="this-container" style="">
                                <?php include('category.php'); ?>
                            </div>
                      </div>
@@ -59,21 +57,13 @@ if (isset($_SESSION['id'])) {
                                         <div  id="prolist"></div>
                                     </div>
 
-                                   <!-- <div class="row" ng-controller="category">
-                                        <div id="menu_list"></div>
-                                        <div class="col-xs-4 col-md-3 col-sm-3 this-padding this-text-black this-center" ng-repeat="x in names">
-                                            <div class="this-border">
-                                                <img src="https://static.vix.com/en/sites/default/files/styles/large/public/m/mcdonalds-secret-menu-hacks-1.jpg"class="img-responsive "/>
-                                            </div>
-                                            <p>{{x.full_name}}</p>
-                                        </div>
-                                    </div>-->
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-4 col-md-4 col-sm-4 bg-white this-border-left this-right this-padding-0"
+                <div class="col-xs-5 col-md-5 col-sm-5 bg-white this-border-left this-right this-padding-0"
                      style="right:0;position: absolute">
                     <div class="this-container this-border-bottom this-padding-0 this-center " style="margin: 0px">
 
@@ -92,20 +82,20 @@ if (isset($_SESSION['id'])) {
                         </a>
 
                     </div>
-                    <div class="this-container this-border-bottom this-pale-blue this-padding "
-                         style="margin:0px; height:60px">
-                        <h4 class="this-large"> INVOICE:</h4>
+                    <div class="this-container this-border-bottom this-pale-blue this-padding  " >
+                        <div  class="this-large this-left this-padding "> BILL NO :000001 </div>
+                        <div  class="this-large this-right this-padding "> TABLE NO :01 </div>
                     </div>
                     <div class="this-container" style="min-height: 70%;height: 540px; overflow:scroll;padding: 0px">
                         <table class="this-table this-striped this-border-bottom this-metro-dark-red" >
                             <tr>
                                 <th>Name</th>
-                                <th style="width:50px">QTY</th>
-                                <th style="width:120px">Price</th>
-                                <th style="width: 50px">Action</th>
+                                <th style="width:30px">QTY</th>
+                                <th style="width:80px">Price</th>
+                                <th style="width: 40px">Action</th>
                             </tr>
                             </table>
-                        <table class="this-table this-striped" id="myTable" >
+                        <table class="this-table this-striped">
                             <tbody id="list">
                             </tbody>
 
@@ -116,10 +106,9 @@ if (isset($_SESSION['id'])) {
                     <div class="this-container this-border-top this-center " style="margin: 0px; height:100px;
                     padding: 0px;">
                         <div class="this-container this-border-bottom this-center this-padding this-metro-dark-red
-                        this-text-white" style="margin:
-                        0px;
-                    height:40px;position: relative">
-                            <p style="">Payment</p>
+                        this-text-white" style="margin: 0px;height:40px;position: relative; font-weight: bold">
+                            <div class=" this-large col-sm-5">Total : </div>
+                            <div class="this-large col-sm-5" id="total">0.0</div>
                         </div>
                         <div class="this-container this-border-bottom this-padding-0 this-center" style="margin: 0px">
 
