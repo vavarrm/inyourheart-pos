@@ -16,7 +16,7 @@ if (isset($_SESSION['id'])) {
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Main</title>
-    <script src="/js/jquery/1.12.4/jquery.min.js"></script>
+
     <?php
     include ('layout/header.php');
     include('layout/style.php');
@@ -88,7 +88,16 @@ if (isset($_SESSION['id'])) {
 
                     </div>
                     <div class="this-container this-border-bottom this-pale-blue this-padding  " >
-                        <div  class="this-large this-left this-padding "> TABLE NO :01 </div>
+                        <div  class="this-large this-left this-padding ">
+							NUMBER ：
+							<select name="number">
+							</select>
+							Delivery：
+							<select name="delivery">
+								<option value="no">No</option>
+								<option value="yes">Yes</option>
+							</select>
+						</div>
                     </div>
                     <div class="this-container" style="min-height: 70%;height: 540px; overflow:scroll;padding: 0px">
                         <table class="this-table this-striped this-border-bottom " >
@@ -117,7 +126,7 @@ if (isset($_SESSION['id'])) {
                         <div class="this-container this-border-bottom this-padding-0 this-center" style="margin: 0px">
 
                             <div class="col-xs-4 col-md-4 col-sm-4 this-border-right">
-                                <h4 class="this-bar-item"><i class="fa fa-check-square w3-xxxlarge" style="font-size: 30px"></i></h4>
+                                <h4 class="this-bar-item"><i class="fa fa-check-square w3-xxxlarge" id="addOrder" style="font-size: 30px;cursor: pointer;"></i></h4>
                             </div>
                             <div class="col-xs-4 col-md-4 col-sm-4 this-border-right ">
                                 <h4 class="this-bar-item"><i class="fa fa-money w3-xxxlarge" style="font-size: 30px"></i></h4>

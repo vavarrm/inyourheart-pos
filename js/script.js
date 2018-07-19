@@ -1,13 +1,9 @@
-var getMenuList ="http://inyourheart.beta.com/Api/Api/getMenu";
+var getMenuListApi =domain_url+"Api/Api/getMenu";
+var addOrderApi =domain_url+"Api/Api/addOrder";
 var menulist ={};
+var numberlist ={};
 var categorylist ={};
-// $( window ).load(function() {
-
-   
-  /* category();
-   list_byCat();*/
-
-// });
+var  Meals = new Array();
 $(window).on('load',function(){
 	list();
 	$('#category-select').bind('change',function(e){
@@ -21,25 +17,60 @@ $(window).on('load',function(){
 		
 		$('.category-'+id).show();
 	})
+	
+	$('#addOrder').bind('click',function(){
+		if(Meals.length >0)
+		{
+			if(confirm('Confirm Order'))
+			{
+				var data = 
+				{
+					"number" 	:$("select[name=number]").val(),
+					"delivery"  :$('select[name=delivery]').val(),
+					"meals"  :Meals
+				};
+				$.ajax({
+				  url : addOrderApi,
+				  type : 'post', 
+				  dataType : 'json', // 預期從server接收的資料型態
+				  contentType:"application/x-www-form-urlencoded",
+				  data : JSON.stringify(data),
+				  success : function(result) {
+					if(result.status =="200")
+					{
+						alert('Order Ok');
+						window.location.reload();
+					}else
+					{
+						alert(result.message);
+					}
+				  },
+				});
+			}
+		}
+	})
 });
 function list() {
-    $.post(getMenuList, function( data ) {
+    $.post(getMenuListApi, function( data ) {
         menulist =data.body.data.menu;
+        khrtousd =data.body.data.khrtousd;
         categorylist =data.body.data.category;
+        numberlist =data.body.data.canUseNumber;
         $.each(menulist,function (i,item){
             $.each(item.list,function (j,e)
 			{
-                var img;
-                if(e.img==""){
-                    img=e.img;
-                }else{
-                    img="/images/defult.jpg";
-                }
+				// console.log(e.img);
+                // var img;
+                // if(e.img==""){
+                    // img=e.img;
+                // }else{
+                    // img="/images/defult.jpg";
+                // }
                 $('#prolist').append(''+
                     '<div  data-id="'+e.id+'" data-unit_price="'+e.unit_price+'" data-full_name="'+e.full_name+'" class="col-xs-4 col-md-3 col-sm-3 Meals this-padding  this-text-blackthis-center category-'+i+'"' +
                     ' onclick="orderFood(this)" >' +
-                    '<img src="'+img+' "class="img-responsive "/>'+
-                    '<div style="height:60px;">'+e.full_name+'</div>'+
+                    '<img onerror="'+"javascript:this.src='/images/default.jpg'"+ '" src="'+ domain_url+'images/menu/'+e.img+'.png" class="img-responsive" style="width:250px;height:220px"/>'+
+                    '<div style="height:60px;cursor: pointer;">'+e.full_name+'</div>'+
                     '</div>'
                 );
             });
@@ -56,30 +87,22 @@ function list() {
 		var default_selected = $("#category-select").val();
 		$('.Meals').hide();
 		$('.category-'+default_selected).show();
+		$.each(numberlist,function (i,item){
+			if(i==0)
+			{
+				$("select[name=number]").append($("<option selected></option>").attr("value", item).text(item))
+			}else
+			{
+				$("select[name=number]").append($("<option></option>").attr("value", item).text(item))
+			}
+		})
     },'json')
 
 }
 
 
 
-function list_byCat(id) {
-    console.log(id);
-    $('.category-'+id).hide();
-    /*
-    $.post(getMenuList, function( data ) {
-        $.each(data.body.data.menu[id],function (i,item) {
-            $.each(item.list,function (i,e){
-               console.log(e);
-            });
-        })
-    },'json');*/
 
-    //$('#prolist').empty();
-    w3_close();
-    //list();
-}
-
-var  Meals = new Array();
     //event drap  ondragstart="dragStart(event)" draggable="true" id="dragtarget"
 function orderFood(e) 
 {
@@ -163,7 +186,7 @@ function subTotal()
 		total+=parseFloat(e.quantity * e.unit_price);
 	});
 	$("#total").html(total);
-	$("#total-khr").html(commafy(total*4000));
+	$("#total-khr").html(commafy(total*khrtousd));
 }
 
 function commafy(num) 

@@ -74,28 +74,8 @@ if (isset($_SESSION['id'])) {
                         </div>
                         <div class="this-container this-padding-top this-margin-top">
                             <div class="this-container this-padding this-text-black ">
-                                <div class="row">
-                                    <?php
-                                    if (!empty($cus)){
-                                        foreach ($cus as $p){
-                                            ?>
-                                            <a href="<?=base_url()?>inv/<?php echo $p->t_cusID ?>">
-                                                <div  style="cosur">
-                                                    <div class="col-xs-4 col-md-2 col-sm-2 this-padding this-text-black
-                                                this-center">
-                                                        <div class="this-">
-                                                            <img src="/images/table.png"
-                                                                 class="img-responsive
-"/>
-                                                        </div>
-                                                        <p> <?php echo $p->t_cusName  ?></p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <?php
-                                        }
-                                    }
-                                    ?>
+                                <div class="row" id="datalist">            
+									                              
                                 </div>
                             </div>
                         </div>
@@ -104,7 +84,22 @@ if (isset($_SESSION['id'])) {
             </div>
         </div>
     </div>
+	<div id="dialog" title="Bill List" class="hidden">
+	<table class="table table-hover" id="bill-table">
+		<thead>
+		  <tr>
+			<th width="55%">name</th>
+			<th style="text-align: center;" width="15%">unit price</th>
+			<th style="text-align: center;" width="15%">qty</th>
+			<th style="text-align: center;" width="15%">subtotal</th>
+		  </tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+	</div>
+ 
 </section>
-
+<script src="/js/customer.js"></script>
 </body>
 </html>

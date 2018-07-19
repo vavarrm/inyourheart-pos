@@ -130,9 +130,9 @@ class Main extends CI_Controller {
         }
     }
     public function customer(){
-        $pro=$this->product-> getProduct();
-        $data=$this->category->getAll();
-        $cus=$this->customer->index();
+        // $pro=$this->product-> getProduct();
+        // $data=$this->category->getAll();
+        // $cus=$this->customer->index();
         $cat=array(
             'cat'=>$data,
             'pro'=>$pro,
