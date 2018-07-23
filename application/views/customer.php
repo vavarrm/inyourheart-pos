@@ -85,20 +85,60 @@ if (isset($_SESSION['id'])) {
         </div>
     </div>
 	<div id="dialog" title="Bill List" class="hidden">
-	<table class="table table-hover" id="bill-table">
-		<thead>
-		  <tr>
-			<th width="55%">name</th>
-			<th style="text-align: center;" width="15%">unit price</th>
-			<th style="text-align: center;" width="15%">qty</th>
-			<th style="text-align: center;" width="15%">subtotal</th>
-		  </tr>
-		</thead>
-		<tbody>
-		</tbody>
-	</table>
+		<label>Code：<span id="bill-code"></span></label><br>
+		<label>Number：<span id="bill-number"></span></label><br>
+		<label>Delivery：<span id="bill-delivery"></span></label>
+		<table class="table  table-dark" id="bill-table">
+			<thead >
+			  <tr class="this-metro-dark-red">
+				<th width="55%">name</th>
+				<th style="text-align: center;" width="15%">unit price</th>
+				<th style="text-align: center;" width="15%">qty</th>
+				<th style="text-align: center;" width="15%">subtotal</th>
+			  </tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+		<div class="row">
+			<div class="col-md-6" >
+				usd：<input type="radio"  value="usd" name="currency" checked />
+				riel：<input type="radio"  value="riel" name="currency" />
+				Discount：<select name="discount">
+					<option value="1" selected>no</option>
+					<option value="0.95" >5%</option>
+					<option value="0.90" >10%</option>
+					<option value="0.85" >15%</option>
+					<option value="0.80" >20%</option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3 payusd paydiv" >
+				<label>pay usd</label> 
+				<input class="form-control payinput"  value="0" name="payusd"  min="0" step="0.01" type="number" >
+			</div>
+			<div class="col-md-3 payriel paydiv" style="display:none;">
+				<label>pay riel</label> 
+				<input class="form-control payinput" value="0" name="payriel"  min="0" step="100" type="number"  >
+			</div>
+		</div>
+		<div class="row">
+			<br>
+			<div class="col-md-6" >
+				<label style="color:blue">change usd</label> 
+				<span style="color:blue" id="change">0.00</span><br>
+				<span style="color:red" id="riel-decimal"></span><br>
+				<span style="color:red" id="usdtoriel"></span>
+			</div>
+		</div>
 	</div>
- 
+	<div id="dialog-confirm" title="confirm" style="display:none;">
+		<p>Confirm Check Bill</p>
+	</div>
+	<div id="dialog-alert" title="alert" style="display:none;">
+		<p></p>
+	</div>
 </section>
 <script src="/js/customer.js"></script>
 </body>
