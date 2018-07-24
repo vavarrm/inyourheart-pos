@@ -108,6 +108,12 @@ $( document ).ready(function() {
 		console.log(discount_usd_total);
 	})
 });
+
+function addMore(e)
+{
+	var code = $(e).data('code');
+	location.href ="/Main/index/"+code;
+}
 function checkBill(doc)
 {
 	if(ajaxloading == true)

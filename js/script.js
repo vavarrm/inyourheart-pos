@@ -1,9 +1,8 @@
 var getMenuListApi =domain_url+"Api/Api/getMenu";
+var getBillForCodeApi =domain_url+"Api/Api/getBillForCode";
+var delMealsApi =domain_url+"Api/Api/delMeals";
 var addOrderApi =domain_url+"Api/Api/addOrder";
-var menulist ={};
-var numberlist ={};
-var categorylist ={};
-var  Meals = new Array();
+
 $(window).on('load',function(){
 	list();
 	$('#category-select').bind('change',function(e){
@@ -32,7 +31,7 @@ $(window).on('load',function(){
 				$.ajax({
 				  url : addOrderApi,
 				  type : 'post', 
-				  dataType : 'json', // 預期從server接收的資料型態
+				  dataType : 'json', 
 				  contentType:"application/x-www-form-urlencoded",
 				  data : JSON.stringify(data),
 				  success : function(result) {
@@ -50,6 +49,42 @@ $(window).on('load',function(){
 		}
 	})
 });
+
+function cancelItem(id,code)
+{
+	$( "#dialog-confirm" ).dialog({
+		buttons:{
+			ok: function() {
+				var data = 
+				{
+					"code" :code,
+					"meals"  :[{"id":id}]
+				};
+				$.ajax({
+				  url : delMealsApi,
+				  type : 'post', 
+				  dataType : 'json', 
+				  contentType:"application/x-www-form-urlencoded",
+				  data : JSON.stringify(data),
+				  success : function(result) {
+					if(result.status =="200")
+					{
+					
+						window.location.reload();
+					}else
+					{
+						
+					}
+				  },
+				});
+				$(this).dialog( "close" );
+			},
+			cancel :function(){
+				$(this).dialog( "close" );
+			}
+		}
+	});
+}
 function list() {
     $.post(getMenuListApi, function( data ) {
         menulist =data.body.data.menu;
@@ -111,12 +146,13 @@ function orderFood(e)
 	var unit_price = $(e).data('unit_price');
 	var add_quantity = 0;
 	var qty =1;
+	console.log(Meals);
 	$(Meals).each(function (i,e) 
 	{
 		if(e.me_id == id)
 		{
 			add_quantity = 1;
-			Meals[i].quantity+=1;
+			Meals[i].quantity= parseInt(Meals[i].quantity)+1;
 			$("#col-qty-"+id).val(Meals[i].quantity);
 			$("#col-subtotal-"+id).text(parseFloat(Meals[i].quantity * e.unit_price));
 			return false;
@@ -143,6 +179,7 @@ function orderFood(e)
 				"quantity":1
 			}
 		);
+		console.log(Meals);
 	}
 	subTotal();
 }

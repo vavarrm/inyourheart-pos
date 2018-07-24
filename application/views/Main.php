@@ -100,7 +100,7 @@ if (isset($_SESSION['id'])) {
 						</div>
                     </div>
                     <div class="this-container" style="min-height: 70%;height: 540px; overflow:scroll;padding: 0px">
-                        <table class="this-table this-striped this-border-bottom " >
+                        <table class="table" >
                             <thead>
 								<tr class="this-metro-dark-red">
 									<th >Name</th>
@@ -118,9 +118,9 @@ if (isset($_SESSION['id'])) {
                     padding: 0px;">
                         <div class="this-container this-border-bottom this-center this-padding this-metro-dark-red
                         this-text-white" style="margin: 0px;height:80px;position: relative; font-weight: bold">
-                            <div class=" this-large col-sm-5">Total USD： </div>
+                            <div class=" this-large col-sm-5">Total Usd： </div>
                             <div class="this-large col-sm-5" id="total">0.00</div>
-                            <div class="this-large col-sm-5">Total KHR：</div>
+                            <div class="this-large col-sm-5">Total Riel：</div>
                             <div class="this-large col-sm-5" id="total-khr">0</div>
                         </div>
                         <div class="this-container this-border-bottom this-padding-0 this-center" style="margin: 0px">
@@ -140,10 +140,52 @@ if (isset($_SESSION['id'])) {
             </div>
         </div>
     </div>
+	<div id="dialog-confirm" title="confirm" style="display:none;">
+		<p>Confirm Cancel meal</p>
+	</div>
 </section>
 
 <!-- Latest compiled JavaScript -->
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script>
+
+	var billjson = '<?php echo $billjson ?>';
+	var menulist ={};
+	var numberlist ={};
+	var categorylist ={};
+	var  Meals = new Array();
+	if(billjson!="")
+	{
+		billjson = JSON.parse(billjson);
+	}
+	if(typeof billjson =='object')
+	{
+		$.each(billjson.body.data.list, function(i,e){
+			$('#list').append('' +
+			  '<tr  style="font-weight: bold" id="titlerow'+e.me_id+'">' +
+			  ' <td style="word-wrap:break-word;word-break:break-all">'+e.full_name+'</td>' +
+			  ' <td  style="text-align: center"  ><input id="col-qty-'+e.me_id+'" data-id="'+e.me_id+'"  class="input-qty"  style="width:50px" type="number" min="1" step="1" value="'+e.quantity+'"></td>' +
+			  ' <td style="text-align: center">'+e.unit_price+'</td>' +
+			  ' <td style="text-align: center" id="col-subtotal-'+e.me_id+'" >'+parseFloat(e.quantity * e.unit_price)+'</td>' +
+			  ' <td onclick="cancelItem('+e.id+','+"'"+e.code+"'"+')"  ><i class="fa fa-trash this-text-red" ' +
+			  '  style="font-size:20px;cursor:pointer "' +
+			  '</td>' +
+			  ' </tr>'
+			);
+			Meals.push(
+				{
+					"me_id":e.me_id,
+					"unit_price":e.unit_price,
+					"original_price":e.original_price,
+					"quantity":e.quantity
+				}
+			);
+		})
+		$('#total').text(billjson.body.data.info.total_usd);
+		$('#total-khr').text(billjson.body.data.info.total_riel);
+
+	}
+</script>
 <script src="/js/script.js"></script>
 </body>
 </html>
