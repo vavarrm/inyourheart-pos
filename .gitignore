@@ -2,3 +2,4 @@
 /session_file
 /js/config.js
 /*.htaccess
+/js/*.htaccess

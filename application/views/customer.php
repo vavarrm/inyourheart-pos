@@ -133,8 +133,9 @@ if (isset($_SESSION['id'])) {
                                            min="0"
                                            ng-model="txtpayinputusd"
                                            step="0.01"
-                                           type="number"  >
-
+                                           type="number"  
+										   stringToNumber
+									>
                                 </div>
                             </div>
                             <div class="col-md-12 payriel paydiv this-padding-0" style="display:none;">
@@ -145,7 +146,7 @@ if (isset($_SESSION['id'])) {
                                            value="0" name="payriel"
                                            min="0" step="100"
                                            ng-model="txtpayinputreil"
-                                           type="number" style="border: none;border-radius: 0px!important;"  >
+                                           type="number" style="border: none;border-radius: 0px!important;" stringToNumber >
                                 </div>
                                 <span id="payRiel"></span>
                             </div>
@@ -178,13 +179,14 @@ if (isset($_SESSION['id'])) {
                 </div>
             </div>
         <div class="col-sm-12">
-            <div id="printBill"  class="btn btn-danger"> Print </div>
+            <div id="printBill"  class="btn btn-danger" style="display:none;"> Print </div>
         </div>
 	</div>
 	<div id="dialog-confirm" title="confirm" style="display:none;">
 		<p>Confirm Check Bill</p>
 	</div>
 	<div id="dialog-alert" title="alert" style="display:none;">
+		<p></p>
 	</div>
 </section>
 <script src="/js/customer.js"></script>
@@ -196,9 +198,23 @@ if (isset($_SESSION['id'])) {
     });
     var app = angular.module('myApp', []);
     app.controller('myCtrl', function($scope) {
-        $scope.txtpayinputusd = "0.0";
-        $scope.txtpayinputreil = "0.0";
+        $scope.txtpayinputusd = 0.0;
+        $scope.txtpayinputreil = 0.0;
     });
+	app.directive('stringToNumber', function() {
+	  return {
+		require: 'ngModel',
+		link: function(scope, element, attrs, ngModel) {
+		  ngModel.$parsers.push(function(value) {
+			return '' + value;
+		  });
+		  ngModel.$formatters.push(function(value) {
+			return parseFloat(value);
+		  });
+		}
+	  };
+	});
+
 </script>
 </body>
 </html>

@@ -15,7 +15,7 @@
         background-size: cover; background-repeat: no-repeat
     }
     .pos-btn-pay{
-        background-image:url('http://static.wellsense.org/corporate/images/structure/pharm-button-background.png');
+
         background-size: cover; background-repeat: no-repeat
     }
 </style>
