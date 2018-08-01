@@ -15,7 +15,7 @@ if (isset($_SESSION['id'])) {
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Main</title>
+    <title>IN YOUR HEART </title>
 
     <?php
     include ('layout/header.php');
@@ -55,11 +55,9 @@ if (isset($_SESSION['id'])) {
                                 <div class="row">
 									<div >
 									  <select class="form-control" id="category-select">
-										
 									  </select>
 									</div>
 									<br>
-
                                     <div class="col-sm-12">
                                         <div  id="prolist"></div>
                                     </div>

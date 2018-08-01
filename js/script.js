@@ -73,7 +73,7 @@ function cancelItem(id,code)
 						window.location.reload();
 					}else
 					{
-						
+
 					}
 				  },
 				});
@@ -104,7 +104,7 @@ function list() {
                 $('#prolist').append(''+
                     '<div  data-id="'+e.id+'" data-unit_price="'+e.unit_price+'" data-full_name="'+e.full_name+'" class="col-xs-4 col-md-3 col-sm-3 Meals this-padding  this-text-blackthis-center category-'+i+'"' +
                     ' onclick="orderFood(this)" >' +
-                    '<img onerror="'+"javascript:this.src='/images/default.jpg'"+ '" src="'+ domain_url+'images/menu/'+e.img+'.png" class="img-responsive" style="width:250px;height:220px"/>'+
+                    '<img onerror="'+"javascript:this.src='/images/default.jpg'"+ '" src="'+ domain_url+'images/menu/'+e.img+'.png" class="img-responsive" />'+
                     '<div style="height:60px;cursor: pointer;">'+e.full_name+'</div>'+
                     '</div>'
                 );
@@ -248,6 +248,12 @@ function deletedOrder(id) {
 	});
 	subTotal();
 }
+
+
+
+
+
+
 function refreshMenu() {
     $('#prolist').empty();
     w3_close();
