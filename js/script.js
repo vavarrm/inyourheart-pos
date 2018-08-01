@@ -123,6 +123,7 @@ function cancelItem(id,code)
 								$( "#dialog-confirm" ).dialog( "close" );
 								$(this).dialog( "close" );
 							}}
+						})
 					}
 				  },
 				});
