@@ -1,7 +1,6 @@
 <link rel="stylesheet" href="<?=base_url()?>css/sihalive-style.css"/>
 <link rel="stylesheet" href="<?=base_url()?>css/colors-metro.css"/>
 <link rel="stylesheet" href="<?=base_url()?>css/jquery-ui.min.css"/>
-<link rel="stylesheet" href="<?=base_url()?>css/bootstrap.css"/>
 <link rel="stylesheet" href="<?=base_url()?>css/bootstrap.min.css"/>
 
 <script src="/js/config.js"></script>

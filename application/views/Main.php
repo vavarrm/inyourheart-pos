@@ -92,6 +92,7 @@ if (isset($_SESSION['id'])) {
 							NUMBER ：
 							<select name="number">
 							</select>
+							<span id="result-number"></span>
 							Delivery：
 							<select name="delivery">
 								<option value="no">No</option>
@@ -143,6 +144,9 @@ if (isset($_SESSION['id'])) {
 	<div id="dialog-confirm" title="confirm" style="display:none;">
 		<p>Confirm Cancel meal</p>
 	</div>
+	<div id="dialog-alert" title="alert" style="display:none;">
+		<p></p>
+	</div>
 </section>
 
 <!-- Latest compiled JavaScript -->
@@ -154,15 +158,19 @@ if (isset($_SESSION['id'])) {
 	var numberlist ={};
 	var categorylist ={};
 	var  Meals = new Array();
+	var add_more = false;
+	var  result_code ='<?php echo $code ?>';
 	if(billjson!="")
 	{
 		billjson = JSON.parse(billjson);
 	}
 	if(typeof billjson =='object')
 	{
+		add_more = true;
+	
 		$.each(billjson.body.data.list, function(i,e){
 			$('#list').append('' +
-			  '<tr  style="font-weight: bold" id="titlerow'+e.me_id+'">' +
+			  '<tr  style="font-weight: bold" class="this-metro-light-blue" id="titlerow'+e.me_id+'">' +
 			  ' <td style="word-wrap:break-word;word-break:break-all">'+e.full_name+'</td>' +
 			  ' <td  style="text-align: center"  ><input id="col-qty-'+e.me_id+'" data-id="'+e.me_id+'"  class="input-qty"  style="width:50px" type="number" min="1" step="1" value="'+e.quantity+'"></td>' +
 			  ' <td style="text-align: center">'+e.unit_price+'</td>' +
@@ -177,13 +185,16 @@ if (isset($_SESSION['id'])) {
 					"me_id":e.me_id,
 					"unit_price":e.unit_price,
 					"original_price":e.original_price,
-					"quantity":e.quantity
+					"quantity":e.quantity,
+					"id":e.id
 				}
 			);
 		})
 		$('#total').text(billjson.body.data.info.total_usd);
 		$('#total-khr').text(billjson.body.data.info.total_riel);
-
+		$('#result-number').text(billjson.body.data.info.number);
+		$('select[name=number]').hide();
+		$('select[name=delivery]').val(billjson.body.data.info.delivery).prop('disabled', true);
 	}
 </script>
 <script src="/js/script.js"></script>

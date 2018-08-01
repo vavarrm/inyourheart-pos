@@ -2,6 +2,7 @@ var getMenuListApi =domain_url+"Api/Api/getMenu";
 var getBillForCodeApi =domain_url+"Api/Api/getBillForCode";
 var delMealsApi =domain_url+"Api/Api/delMeals";
 var addOrderApi =domain_url+"Api/Api/addOrder";
+var addMoreOrderApi =domain_url+"Api/Api/addMoreOrder";
 
 $(window).on('load',function(){
 	list();
@@ -20,32 +21,66 @@ $(window).on('load',function(){
 	$('#addOrder').bind('click',function(){
 		if(Meals.length >0)
 		{
-			if(confirm('Confirm Order'))
-			{
-				var data = 
-				{
-					"number" 	:$("select[name=number]").val(),
-					"delivery"  :$('select[name=delivery]').val(),
-					"meals"  :Meals
-				};
-				$.ajax({
-				  url : addOrderApi,
-				  type : 'post', 
-				  dataType : 'json', 
-				  contentType:"application/x-www-form-urlencoded",
-				  data : JSON.stringify(data),
-				  success : function(result) {
-					if(result.status =="200")
-					{
-						alert('Order Ok');
-						window.location.reload();
-					}else
-					{
-						alert(result.message);
-					}
-				  },
-				});
+			var apiurl ;
+			var number;
+			if(add_more ==true)
+			{	
+				apiurl = addMoreOrderApi;
+				number =$('#result-number').text();
+			}else{
+				apiurl = addOrderApi;
+				number = $("select[name=number]").val();
 			}
+			$( "#dialog-confirm" ).text('new order');
+			$( "#dialog-confirm" ).dialog({
+				buttons:{
+					ok: function() 
+					{
+						var data = 
+						{
+							"number" 	:number,
+							"delivery"  :$('select[name=delivery]').val(),
+							"meals"  :Meals,
+							"code"	:result_code
+						};
+						$.ajax({
+						  url : apiurl,
+						  type : 'post', 
+						  dataType : 'json', 
+						  contentType:"application/x-www-form-urlencoded",
+						  data : JSON.stringify(data),
+						  success : function(result) {
+							$('#dialog-alert p').text(result.message);
+							if(result.status =="200")
+							{
+								$( "#dialog-alert" ).dialog({
+									buttons:
+									{
+										ok: function() {
+										$( "#dialog-confirm" ).dialog( "close" );
+										$(this).dialog( "close" );
+										window.location.reload();
+									}}
+								});
+							}else
+							{
+								$( "#dialog-alert" ).dialog({
+									buttons:
+									{
+										ok: function() {
+										$( "#dialog-confirm" ).dialog( "close" );
+										$(this).dialog( "close" );
+									}}
+								});
+							}
+						  },
+						});
+					},
+					cancel :function(){
+						$(this).dialog( "close" );
+					}
+				}
+			});
 		}
 	})
 });
@@ -67,13 +102,28 @@ function cancelItem(id,code)
 				  contentType:"application/x-www-form-urlencoded",
 				  data : JSON.stringify(data),
 				  success : function(result) {
+					$('#dialog-alert p').text(result.message);
 					if(result.status =="200")
 					{
-					
-						window.location.reload();
+						$( "#dialog-alert" ).dialog({
+							buttons:
+							{
+								ok: function() {
+								$( "#dialog-confirm" ).dialog( "close" );
+								$(this).dialog( "close" );
+								window.location.reload();
+							}}
+						});
 					}else
 					{
-						
+						$( "#dialog-alert" ).dialog({
+							buttons:
+							{
+								ok: function() {
+								$( "#dialog-confirm" ).dialog( "close" );
+								$(this).dialog( "close" );
+							}}
+						});
 					}
 				  },
 				});
@@ -146,7 +196,6 @@ function orderFood(e)
 	var unit_price = $(e).data('unit_price');
 	var add_quantity = 0;
 	var qty =1;
-	console.log(Meals);
 	$(Meals).each(function (i,e) 
 	{
 		if(e.me_id == id)
@@ -179,7 +228,6 @@ function orderFood(e)
 				"quantity":1
 			}
 		);
-		console.log(Meals);
 	}
 	subTotal();
 }
