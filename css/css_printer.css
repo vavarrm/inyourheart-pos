@@ -1,0 +1,19 @@
+@page {
+    margin: 1cm; }
+
+.form-control{
+    border: none!important;
+    border-radius:0px!important;
+}
+
+thead{
+    background: black!important;
+    color: white!important;
+}
+
+tr{
+    border: none;
+}
+#dis{
+    display: none!important;
+}

@@ -16,6 +16,83 @@ var discount ;
 var pay_change; 
 $( document ).ready(function() {
 
+    $('#printBill').click(function () {
+        var divToPrint=document.getElementById('print_receipt');
+        var newWin=window.open('','Print-Window');
+        newWin.document.open();
+        newWin.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/sihalive-style.css" type="text/css" />');
+        newWin.document.write('<link rel="stylesheet" href="/css/css_printer.css" type="text/css" />');
+        newWin.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/jquery-ui.min.css" type="text/css" />');
+        newWin.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/bootstrap.css" type="text/css" />');
+        newWin.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/bootstrap.min.css" type="text/css" />');
+        newWin.document.write('' +
+			'<html><body onload="window.print()">'+divToPrint.innerHTML+'</body></html>');
+        newWin.document.close();
+        setTimeout(function(){
+            newWin.close();
+        	},10);
+     });
+
+    $('#printBillss').click(function () {
+        var contents = document.getElementById("print_receipt").innerHTML;
+        var frame1 = document.createElement('iframe');
+        frame1.name = "frame1";
+        frame1.style.position = "absolute";
+        frame1.style.top = "-1000000px";
+        //document.body.appendChild(frame1);
+        var frameDoc = frame1.contentWindow ? frame1.contentWindow : frame1.contentDocument.document ? frame1.contentDocument.document : frame1.contentDocument;
+        frameDoc.document.open();
+        frameDoc.document.write('<html><head><title>IN YOUR HEART </title>');
+        frameDoc.document.open();
+        frameDoc.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/sihalive-style.css" type="text/css" />');
+        frameDoc.document.write('<link rel="stylesheet" href="/css/css_printer.css" type="text/css" />');
+        frameDoc.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/jquery-ui.min.css" type="text/css" />');
+        frameDoc.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/bootstrap.css" type="text/css" />');
+        frameDoc.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/bootstrap.min.css" type="text/css" />');
+        frameDoc.document.write('</head><body>');
+        frameDoc.document.write(contents);
+        frameDoc.document.write('</body></html>');
+        frameDoc.document.close();
+        setTimeout(function () {
+            window.frames["frame1"].focus();
+            window.frames["frame1"].print();
+            document.body.removeChild(frame1);
+            self.close();
+        }, 500);
+        return false;
+    });
+    function printBill(){
+            var contents = document.getElementById("print_receipt").innerHTML;
+            var frame1 = document.createElement('iframe');
+            frame1.name = "frame1";
+            frame1.style.position = "absolute";
+            frame1.style.top = "-100px";
+            document.body.appendChild(frame1);
+            var frameDoc = frame1.contentWindow ? frame1.contentWindow : frame1.contentDocument.document ? frame1.contentDocument.document : frame1.contentDocument;
+            frameDoc.document.open();
+            frameDoc.document.write('<html><head>');
+            frameDoc.document.open();
+            frameDoc.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/sihalive-style.css" type="text/css" />');
+            frameDoc.document.write('<link rel="stylesheet" href="/css/css_printer.css" type="text/css" />');
+            frameDoc.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/jquery-ui.min.css" type="text/css" />');
+            frameDoc.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/bootstrap.css" type="text/css" />');
+            frameDoc.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/bootstrap.min.css" type="text/css" />');
+            frameDoc.document.write('</head><body style="margin-top: -10px ;padding: 2px!important;">');
+            frameDoc.document.write(contents);
+            frameDoc.document.write('</body></html>');
+            frameDoc.document.close();
+            setTimeout(function () {
+
+                $(".print default").trigger(e);
+                window.frames["frame1"].focus();
+                window.frames["frame1"].print();
+                document.body.removeChild(frame1);
+                self.close();
+            }, 500);
+            return false;
+	}
+
+
 	$.post(getNoCheckBillOrder, function( r) {
 		$.each(r.body.data,function (j,e)
 		{
@@ -104,7 +181,7 @@ $( document ).ready(function() {
 	$("select[name=discount]").bind('change',function(){
 		var discount_usd_total = usd_total * $(this).val();
 		var discount_riel_total = riel_total  * $(this).val();
-		$('#total').text('usd：'+discount_usd_total+' riel：'+ discount_riel_total);
+		$('#total').text('USD：'+discount_usd_total+' Riel：'+ discount_riel_total);
 		console.log(discount_usd_total);
 	})
 });
@@ -124,7 +201,6 @@ function checkBill(doc)
 	ajaxloading = true;
 	var code = $(doc).data('code');
 	var data = {'code':code};
-
 
 	$.ajax({
 		  url : getBillByForCheckBill,
@@ -148,9 +224,11 @@ function checkBill(doc)
 					html +="/<tr>";
 					$('#bill-table tbody').append(html);
 				})
-				var html='<tr class="this-metro-light-blue">';
-				html+="<td colspan='2'>Total</td>";
-				html+='<td colspan="2" style="text-align: center;" id="total"> usd：'+result.body.data.info.total+' riel：'+result.body.data.info.total_riel+'</td>';
+				var html='<tr class="this-metro-light-blue" style="border-top: 2px solid black; padding: 0px">';
+				html+="<td colspan='2' style='font-weight: bold'>Grand Total  </td>";
+				html+='<td colspan="4" style="font-weight: bold;" id="total">' +
+					'<span class="this-right">'+result.body.data.info.total+' USD </span> ' +
+					'<span class="this-right tt-riels this-hide-small">'+result.body.data.info.total_riel+' Riel</span></td>';
 				html +="/<tr>";
 				$('#bill-table tbody').append(html);
 				$( "#dialog" ).removeClass('hidden');
@@ -160,7 +238,7 @@ function checkBill(doc)
 				usdtoriel = result.body.data.usdtoriel;
 				usd_total =result.body.data.info.total;
 				riel_total =result.body.data.info.total_riel;
-				$('#usdtoriel').text('($1 usd  to '+result.body.data.usdtoriel+' riel)');
+				$('#usdtoriel').text(' 1 USD  = '+result.body.data.usdtoriel+' Riel');
 				$( "#dialog" ).dialog(
 					{   
 						height: 600,
@@ -188,7 +266,7 @@ function checkBill(doc)
 								$( "#dialog-confirm" ).show().dialog({
 									buttons: {
 										Ok:function(){
-											
+
 											if(ajaxloading == true)
 											{
 												alert('loading');
@@ -216,7 +294,6 @@ function checkBill(doc)
 													if(result.status =="200")
 													{
 														$( "#dialog" ).dialog( "close" );
-
 														$( "#dialog-alert" ).dialog({
 															buttons:{
 																close: function() {
@@ -224,9 +301,29 @@ function checkBill(doc)
 																$(this).dialog( "close" );
 															}}
 														});
+														//-------------------------------------------------------------------->Print
+                                                        var divToPrint=document.getElementById('print_receipt');
+                                                        var newWin=window.open('','Print-Window');
+                                                        newWin.document.open();
+                                                        newWin.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/sihalive-style.css" type="text/css" />');
+                                                        newWin.document.write('<link rel="stylesheet" href="/css/css_printer.css" type="text/css" />');
+                                                        newWin.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/jquery-ui.min.css" type="text/css" />');
+                                                        newWin.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/bootstrap.css" type="text/css" />');
+                                                        newWin.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/bootstrap.min.css" type="text/css" />');
+                                                        newWin.document.write('' +
+                                                            '<html>' +
+															'<body onload="window.print()">'+
+															'<center><h3> IN YOUR HEART  </h3></center>'
+															         +divToPrint.innerHTML+
+															'</body>' +
+															'</html>');
+                                                        newWin.document.close();
+                                                        setTimeout(function(){
+                                                            newWin.close();
+                                                        },10);
+														//-------------------------------------------------------------------->end
 													}else
 													{
-														
 														$( "#dialog-alert" ).dialog({
 															buttons:{
 																close: function() {
@@ -261,3 +358,31 @@ function checkBill(doc)
 	});
 	return false;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

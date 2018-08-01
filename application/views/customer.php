@@ -16,12 +16,16 @@ if (isset($_SESSION['id'])) {
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Main</title>
-
+    <title>IN YOUR HEART </title>
     <?php
     include ('layout/header.php');
     include('layout/style.php');
     ?>
+    <style>
+        .form-control{
+            text-align: right!important;
+        }
+    </style>
 </head>
 <body>
 <section class="container-fluid  headerthis-card " style="height: 15%;padding: 0px">
@@ -74,8 +78,7 @@ if (isset($_SESSION['id'])) {
                         </div>
                         <div class="this-container this-padding-top this-margin-top">
                             <div class="this-container this-padding this-text-black ">
-                                <div class="row" id="datalist">            
-									                              
+                                <div class="row" id="datalist">
                                 </div>
                             </div>
                         </div>
@@ -85,61 +88,117 @@ if (isset($_SESSION['id'])) {
         </div>
     </div>
 	<div id="dialog" title="Bill List" class="hidden">
-		<label>Code：<span id="bill-code"></span></label><br>
-		<label>Number：<span id="bill-number"></span></label><br>
-		<label>Delivery：<span id="bill-delivery"></span></label>
-		<table class="table  table-dark" id="bill-table">
-			<thead >
-			  <tr class="this-metro-dark-red">
-				<th width="55%">name</th>
-				<th style="text-align: center;" width="15%">unit price</th>
-				<th style="text-align: center;" width="15%">qty</th>
-				<th style="text-align: center;" width="15%">subtotal</th>
-			  </tr>
-			</thead>
-			<tbody>
-			</tbody>
-		</table>
-		<div class="row">
-			<div class="col-md-6" >
-				usd：<input type="radio"  value="usd" name="currency" checked />
-				riel：<input type="radio"  value="riel" name="currency" />
-				Discount：<select name="discount">
-					<option value="1" selected>no</option>
-					<option value="0.95" >5%</option>
-					<option value="0.90" >10%</option>
-					<option value="0.85" >15%</option>
-					<option value="0.80" >20%</option>
-				</select>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-3 payusd paydiv" >
-				<label>pay usd</label> 
-				<input class="form-control payinput"  value="0" name="payusd"  min="0" step="0.01" type="number" >
-			</div>
-			<div class="col-md-3 payriel paydiv" style="display:none;">
-				<label>pay riel</label> 
-				<input class="form-control payinput" value="0" name="payriel"  min="0" step="100" type="number"  >
-			</div>
-		</div>
-		<div class="row">
-			<br>
-			<div class="col-md-6" >
-				<label style="color:blue">change usd</label> 
-				<span style="color:blue" id="change">0.00</span><br>
-				<span style="color:red" id="riel-decimal"></span><br>
-				<span style="color:red" id="usdtoriel"></span>
-			</div>
-		</div>
+            <div id="print_receipt" ng-app="myApp" ng-controller="myCtrl" >
+                <div class="header_prints">
+                    <span>Code：<span id="bill-code"></span></span><br>
+                    <span>Number：<span id="bill-number"></span></span><br>
+                    <span>Delivery：<span id="bill-delivery"></span></span>
+                    <table class="table  table-dark" id="bill-table">
+                        <thead >
+                        <tr class="this-metro-dark-red">
+                            <th width="55%">Name</th>
+                            <th style="text-align: center;" width="15%">Price</th>
+                            <th style="text-align: center;" width="15%">QTY</th>
+                            <th style="text-align: center;" width="15%">SubTotal</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <div class="row  " style="margin-top: -10px" >
+                        <div class="col-sm-12 this-padding-0" style="font-weight: bold">
+                            <div class="col-xs-10 col-md-10 "><label class="this-left"> Discount </label>
+                            </div>
+                            <div class="col-xs-2 col-md-2  "> <label class="this-right">
+                                    <div class="this-hide-large this-hide-medium" style="font-size: 17px"  id="txtdis"></div>
+                                    <select class="form-control this-hide-small" name="discount" id="dis">
+                                        <option value="1" selected>no</option>
+                                        <option value="0.95" >5%</option>
+                                        <option value="0.90" >10%</option>
+                                        <option value="0.85" >15%</option>
+                                        <option value="0.80" >20%</option>
+                                    </select> </label>  </div>
+                        </div>
+                        <div class="col-sm-12 this-padding-0 " style="font-weight: bold">
+                            <div class="col-xs-10 col-md-10 this-left this-hide-small" style="font-weight: bold" >
+                                USD ：<input type="radio"  value="usd" name="currency" checked />
+                                Riel ：<input type="radio"  value="riel" name="currency" />
+                            </div>
+                            <div class="col-md-12 payusd paydiv this-padding-0" >
+
+                                <div class="col-xs-9 col-sm-9"><label >Cash Receive (USD) </label></div>
+                                <div class="col-xs-3 col-sm-3 ">
+                                    <div class="this-right this-hide-large this-hide-medium " style="font-size: 17px">{{txtpayinputusd}}</div>
+                                    <input class="form-control payinput this-right this-hide-small "   name="payusd"
+                                           min="0"
+                                           ng-model="txtpayinputusd"
+                                           step="0.01"
+                                           type="number"  >
+
+                                </div>
+                            </div>
+                            <div class="col-md-12 payriel paydiv this-padding-0" style="display:none;">
+                                <div class="col-xs-9 col-sm-9"><label >Cash Receive (Riel)  </label></div>
+                                <div class="col-xs-3 col-sm-3 ">
+                                    <div class="this-right this-hide-large this-hide-medium " style="font-size: 17px" >{{txtpayinputreil}}</div>
+                                    <input class="form-control payinput this-border-bottom this-hide-small "
+                                           value="0" name="payriel"
+                                           min="0" step="100"
+                                           ng-model="txtpayinputreil"
+                                           type="number" style="border: none;border-radius: 0px!important;"  >
+                                </div>
+                                <span id="payRiel"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 this-padding-0 " >
+                            <div class="col-md-10" >
+                                <label class="this-text-black this-left">Cash Return (USD) : </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="this-text-black this-right" style="font-size: 17px"  id="change">0.00</label><br>
+                            </div>
+                            <div class="col-md-12 this-hide-small  ">
+                                <label class="this-text-black this-right" id="riel-decimal"> </label><br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-7 col-sm-8 col-md-8 ">
+                            <label class="this-left">Exchange :  </label>
+                        </div>
+                        <div class="col-xs-5 col-sm-4 col-md-4">
+                            <label class="this-text-black this-right" id="usdtoriel"></label>
+                        </div>
+
+                        <div class="col-xs-12 col-md-12 col this-center this-margin-top" style="font-weight: bold">
+                            THANK YOU!
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        <div class="col-sm-12">
+            <div id="printBill"  class="btn btn-danger"> Print </div>
+        </div>
 	</div>
 	<div id="dialog-confirm" title="confirm" style="display:none;">
 		<p>Confirm Check Bill</p>
 	</div>
 	<div id="dialog-alert" title="alert" style="display:none;">
-		<p></p>
 	</div>
 </section>
 <script src="/js/customer.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script>
+    $('#txtdis').append('0.0');
+    $('#dis').on('change', function() {
+        $('#txtdis').append(this.value)
+    });
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope) {
+        $scope.txtpayinputusd = "0.0";
+        $scope.txtpayinputreil = "0.0";
+    });
+</script>
 </body>
 </html>
