@@ -281,6 +281,7 @@ function checkBill(doc)
 												'pay_change' : 	pay_change,
 												'discount' : 	discount,
 											};
+
 											$.ajax({
 												url : checkBillApi,
 												type : 'post', 
@@ -289,6 +290,8 @@ function checkBill(doc)
 												data : JSON.stringify(data),
 												success : function(result) 
 												{
+													console.log(result);
+												
 													$('#dialog-alert p').text(result.message);
 													$( "#dialog-confirm" ).dialog( "close" );
 													if(result.status =="200")
@@ -358,31 +361,3 @@ function checkBill(doc)
 	});
 	return false;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
