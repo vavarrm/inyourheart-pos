@@ -179,7 +179,7 @@ if (isset($_SESSION['id'])) {
                 </div>
             </div>
         <div class="col-sm-12">
-            <div id="printBill"  class="btn btn-danger" style="display:none;"> Print </div>
+            <div id="printBill"  class="btn btn-danger"> Print </div>
         </div>
 	</div>
 	<div id="dialog-confirm" title="confirm" style="display:none;">
