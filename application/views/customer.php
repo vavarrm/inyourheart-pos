@@ -190,7 +190,7 @@ if (isset($_SESSION['id'])) {
 	</div>
 </section>
 <script src="/js/customer.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="/js/angular.min.js"></script>
 <script>
     $('#txtdis').append('0.0');
     $('#dis').on('change', function() {

@@ -21,11 +21,11 @@ $( document ).ready(function() {
         var divToPrint=document.getElementById('print_receipt');
         var newWin=window.open('','Print-Window');
         newWin.document.open();
-        newWin.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/sihalive-style.css" type="text/css" />');
+        newWin.document.write('<link rel="stylesheet" href="/css/sihalive-style.css" type="text/css" />');
         newWin.document.write('<link rel="stylesheet" href="/css/css_printer.css" type="text/css" />');
-        newWin.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/jquery-ui.min.css" type="text/css" />');
-        newWin.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/bootstrap.css" type="text/css" />');
-        newWin.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/bootstrap.min.css" type="text/css" />');
+        newWin.document.write('<link rel="stylesheet" href="/css/jquery-ui.min.css" type="text/css" />');
+        newWin.document.write('<link rel="stylesheet" href="/css/bootstrap.css" type="text/css" />');
+        newWin.document.write('<link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />');
         newWin.document.write('' +
 			'<html><body onload="window.print()">'+divToPrint.innerHTML+'</body></html>');
         newWin.document.close();
