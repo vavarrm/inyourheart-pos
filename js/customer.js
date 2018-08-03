@@ -16,7 +16,8 @@ var discount ;
 var pay_change; 
 $( document ).ready(function() {
 
-    $('#printBill').click(function () {
+    $('#printBill').click(function (e) {
+		e.preventDefault();
         var divToPrint=document.getElementById('print_receipt');
         var newWin=window.open('','Print-Window');
         newWin.document.open();
