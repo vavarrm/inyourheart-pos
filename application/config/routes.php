@@ -58,3 +58,5 @@ $route['pro-(:any)'] = 'main/getProbyproID/$1';
 $route['customer'] = 'main/customer';
 $route['inv/(:any)'] = 'main/startOrder/$1';
 $route['create_customer'] = 'main/create_customer';
+$route['app'] = 'main/app';
+$route['bill'] = 'main/bill';

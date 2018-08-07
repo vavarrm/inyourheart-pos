@@ -177,7 +177,12 @@ class Main extends CI_Controller {
         $this->load->view('Main',$cat);
     }
 
-
+    public function app($x=null){
+        $this->load->view('app');
+    }
+    public function bill(){
+        $this->load->view('bill');
+    }
 
 
 

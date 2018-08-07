@@ -20,11 +20,11 @@ $( document ).ready(function() {
         var divToPrint=document.getElementById('print_receipt');
         var newWin=window.open('','Print-Window');
         newWin.document.open();
-        newWin.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/sihalive-style.css" type="text/css" />');
+        newWin.document.write('<link rel="stylesheet" href="/css/sihalive-style.css" type="text/css" />');
         newWin.document.write('<link rel="stylesheet" href="/css/css_printer.css" type="text/css" />');
-        newWin.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/jquery-ui.min.css" type="text/css" />');
-        newWin.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/bootstrap.css" type="text/css" />');
-        newWin.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/bootstrap.min.css" type="text/css" />');
+        newWin.document.write('<link rel="stylesheet" href="/css/jquery-ui.min.css" type="text/css" />');
+        newWin.document.write('<link rel="stylesheet" href="/css/bootstrap.css" type="text/css" />');
+        newWin.document.write('<link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />');
         newWin.document.write('' +
 			'<html><body onload="window.print()">'+divToPrint.innerHTML+'</body></html>');
         newWin.document.close();
@@ -33,34 +33,6 @@ $( document ).ready(function() {
         	},10);
      });
 
-    $('#printBillss').click(function () {
-        var contents = document.getElementById("print_receipt").innerHTML;
-        var frame1 = document.createElement('iframe');
-        frame1.name = "frame1";
-        frame1.style.position = "absolute";
-        frame1.style.top = "-1000000px";
-        //document.body.appendChild(frame1);
-        var frameDoc = frame1.contentWindow ? frame1.contentWindow : frame1.contentDocument.document ? frame1.contentDocument.document : frame1.contentDocument;
-        frameDoc.document.open();
-        frameDoc.document.write('<html><head><title>IN YOUR HEART </title>');
-        frameDoc.document.open();
-        frameDoc.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/sihalive-style.css" type="text/css" />');
-        frameDoc.document.write('<link rel="stylesheet" href="/css/css_printer.css" type="text/css" />');
-        frameDoc.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/jquery-ui.min.css" type="text/css" />');
-        frameDoc.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/bootstrap.css" type="text/css" />');
-        frameDoc.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/bootstrap.min.css" type="text/css" />');
-        frameDoc.document.write('</head><body>');
-        frameDoc.document.write(contents);
-        frameDoc.document.write('</body></html>');
-        frameDoc.document.close();
-        setTimeout(function () {
-            window.frames["frame1"].focus();
-            window.frames["frame1"].print();
-            document.body.removeChild(frame1);
-            self.close();
-        }, 500);
-        return false;
-    });
     function printBill(){
             var contents = document.getElementById("print_receipt").innerHTML;
             var frame1 = document.createElement('iframe');
@@ -98,14 +70,19 @@ $( document ).ready(function() {
 		{
 			
 			var html =''; 
-			html+='<div class="col-xs-4 col-md-2 col-sm-2 this-padding this-text-blackthis-center">';
-			html+='<label>Number:'+e.number+'</label><br>';
-			html+='<label>Delivery:'+e.delivery+'</label>';
+			html+='<div class="col-xs-4 col-md-2 col-sm-2 this-text-blackthis-center">';
+
 			html+= '<div class="">';
-			html+= '<img src="/images/icon/bill.png"class="img-responsive"/>';
+			html+= '<div class="list-total  " style="min-height: 100px">';
+            html+='<span class="badge this-blue" >No:'+e.number+'</span>';
+            html+='<span class="badge this-red">Delivery:'+e.delivery+'</span>';
+            html+='<button type="button" data-code="'+e.code+'" class="btn btn-success btn-sm "' +
+				' onclick="checkBill(this)">Check Bill</button>&nbsp&nbsp';
+            html+='<button type="button" data-code="'+e.code+'" class="btn btn-success btn-sm "' +
+				' onclick="addMore(this)">Add More</button>';
+				'</div>';
 			html+='</div>';
-			html+='<button type="button" data-code="'+e.code+'" class="btn btn-success" onclick="checkBill(this)">Check Bill</button>&nbsp&nbsp';
-			html+='<button type="button" data-code="'+e.code+'" class="btn btn-success" onclick="addMore(this)">Add More</button>';
+
 			html+='</div>';
 
 			$('#datalist').append(html);
@@ -305,11 +282,11 @@ function checkBill(doc)
                                                         var divToPrint=document.getElementById('print_receipt');
                                                         var newWin=window.open('','Print-Window');
                                                         newWin.document.open();
-                                                        newWin.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/sihalive-style.css" type="text/css" />');
+                                                        newWin.document.write('<link rel="stylesheet" href="/css/sihalive-style.css" type="text/css" />');
                                                         newWin.document.write('<link rel="stylesheet" href="/css/css_printer.css" type="text/css" />');
-                                                        newWin.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/jquery-ui.min.css" type="text/css" />');
-                                                        newWin.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/bootstrap.css" type="text/css" />');
-                                                        newWin.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/bootstrap.min.css" type="text/css" />');
+                                                        newWin.document.write('<link rel="stylesheet" href="/css/jquery-ui.min.css" type="text/css" />');
+                                                        newWin.document.write('<link rel="stylesheet" href="/css/bootstrap.css" type="text/css" />');
+                                                        newWin.document.write('<link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />');
                                                         newWin.document.write('' +
                                                             '<html>' +
 															'<body onload="window.print()">'+

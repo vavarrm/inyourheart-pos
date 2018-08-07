@@ -40,9 +40,7 @@
                         <button class="btn "> Close </button>
                     </a>
                 </div>
-
             </div>
-
         </div>
     </div>
 </div>

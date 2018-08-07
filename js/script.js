@@ -4,50 +4,84 @@ var delMealsApi =domain_url+"Api/Api/delMeals";
 var addOrderApi =domain_url+"Api/Api/addOrder";
 
 $(window).on('load',function(){
-	list();
-	$('#category-select').bind('change',function(e){
-		event.preventDefault();
-		var id =$(this).val();
-		if(id=="all")
-		{
-			return false;
-		}
-		$('.Meals').hide();
-		
-		$('.category-'+id).show();
-	})
-	
-	$('#addOrder').bind('click',function(){
-		if(Meals.length >0)
-		{
-			if(confirm('Confirm Order'))
-			{
-				var data = 
-				{
-					"number" 	:$("select[name=number]").val(),
-					"delivery"  :$('select[name=delivery]').val(),
-					"meals"  :Meals
-				};
-				$.ajax({
-				  url : addOrderApi,
-				  type : 'post', 
-				  dataType : 'json', 
-				  contentType:"application/x-www-form-urlencoded",
-				  data : JSON.stringify(data),
-				  success : function(result) {
-					if(result.status =="200")
-					{
-						alert('Order Ok');
-						window.location.reload();
-					}else
-					{
-						alert(result.message);
-					}
-				  },
-				});
-			}
-		}
-	})
+    list();
+    $('#category-select').bind('change',function(e){
+        event.preventDefault();
+        var id =$(this).val();
+        if(id=="all")
+        {
+            return false;
+        }
+        $('.Meals').hide();
+
+        $('.category-'+id).show();
+    })
+
+    $('#addOrder').bind('click',function(){
+        if(Meals.length >0)
+        {
+            var apiurl ;
+            var number;
+            if(add_more ==true)
+            {
+                apiurl = addMoreOrderApi;
+                number =$('#result-number').text();
+            }else{
+                apiurl = addOrderApi;
+                number = $("select[name=number]").val();
+            }
+            $( "#dialog-confirm" ).text('new order');
+            $( "#dialog-confirm" ).dialog({
+                buttons:{
+                    ok: function()
+                    {
+                        var data =
+                            {
+                                "number" 	:number,
+                                "delivery"  :$('select[name=delivery]').val(),
+                                "meals"  :Meals,
+                                "code"	:result_code
+                            };
+                        $.ajax({
+                            url : apiurl,
+                            type : 'post',
+                            dataType : 'json',
+                            contentType:"application/x-www-form-urlencoded",
+                            data : JSON.stringify(data),
+                            success : function(result) {
+                                $('#dialog-alert p').text(result.message);
+                                if(result.status =="200")
+                                {
+                                    $( "#dialog-alert" ).dialog({
+                                        buttons:
+                                            {
+                                                ok: function() {
+                                                    $( "#dialog-confirm" ).dialog( "close" );
+                                                    $(this).dialog( "close" );
+                                                    window.location.reload();
+                                                }}
+                                    });
+                                }else
+                                {
+                                    $( "#dialog-alert" ).dialog({
+                                        buttons:
+                                            {
+                                                ok: function() {
+                                                    $( "#dialog-confirm" ).dialog( "close" );
+                                                    $(this).dialog( "close" );
+                                                }}
+                                    });
+                                }
+                            },
+                        });
+                    },
+                    cancel :function(){
+                        $(this).dialog( "close" );
+                    }
+                }
+            });
+        }
+    })
 });
 
 function cancelItem(id,code)
@@ -69,7 +103,6 @@ function cancelItem(id,code)
 				  success : function(result) {
 					if(result.status =="200")
 					{
-					
 						window.location.reload();
 					}else
 					{
@@ -94,18 +127,15 @@ function list() {
         $.each(menulist,function (i,item){
             $.each(item.list,function (j,e)
 			{
-				// console.log(e.img);
-                // var img;
-                // if(e.img==""){
-                    // img=e.img;
-                // }else{
-                    // img="/images/defult.jpg";
-                // }
                 $('#prolist').append(''+
-                    '<div  data-id="'+e.id+'" data-unit_price="'+e.unit_price+'" data-full_name="'+e.full_name+'" class="col-xs-4 col-md-3 col-sm-3 Meals this-padding  this-text-blackthis-center category-'+i+'"' +
-                    ' onclick="orderFood(this)" >' +
-                    '<img onerror="'+"javascript:this.src='/images/default.jpg'"+ '" src="'+ domain_url+'images/menu/'+e.img+'.png" class="img-responsive" />'+
-                    '<div style="height:60px;cursor: pointer;">'+e.full_name+'</div>'+
+                    '<div class="  col-xs-4 col-md-3 col-sm-4" >'+
+					'<div class="well  well-sm food-list ">'+
+                    '<div  data-id="'+e.id+'" data-unit_price="'+e.unit_price+'" data-full_name="'+e.full_name+'" class=" Meals  category-'+i+'"' +
+					' onclick="orderFood(this)" >' +
+                         '<img onerror="'+"javascript:this.src='/images/default.jpg'"+ '" src="'+ domain_url+'images/menu/'+e.img+'.png" class="img-responsive" />'+
+                         '<div style="height:60px;cursor: pointer;">'+e.full_name+'</div>'+
+					'</div>'+
+                    '</div>'+
                     '</div>'
                 );
             });
@@ -135,9 +165,6 @@ function list() {
 
 }
 
-
-
-
     //event drap  ondragstart="dragStart(event)" draggable="true" id="dragtarget"
 function orderFood(e) 
 {
@@ -161,13 +188,15 @@ function orderFood(e)
 	if(add_quantity ==0)
 	{
 		$('#list').append('' +
-			  '<tr  style="font-weight: bold" id="titlerow'+id+'">' +
+			  '<tr  id="titlerow'+id+'">' +
 			  ' <td style="word-wrap:break-word;word-break:break-all">'+full_name+'</td>' +
-			  ' <td  style="text-align: center"  ><input id="col-qty-'+id+'" data-id="'+id+'"  class="input-qty"  style="width:50px" type="number" min="1" step="1" value="'+qty+'"></td>' +
+			  ' <td  style="text-align: center"  ><input id="col-qty-'+id+'" data-id="'+id+'"  class="input-qty' +
+			' form-control input-sm"' +
+			'  style="width:50px" type="number" min="1" step="1" value="'+qty+'"></td>' +
 			  ' <td style="text-align: center">'+unit_price+'</td>' +
 			  ' <td style="text-align: center" id="col-subtotal-'+id+'" >'+parseFloat(qty * unit_price)+'</td>' +
-			  ' <td onclick="deletedOrder('+id+')"  ><i class="fa fa-trash this-text-red" ' +
-			  '  style="font-size:20px;cursor:pointer "' +
+			  ' <td onclick="deletedOrder('+id+')"  ><span class="label label-danger"><i class="fa fa-trash-o"' +
+			'style="font-size: 15px"></i></span>' +
 			  '</td>' +
 			  ' </tr>'
 		);
@@ -183,7 +212,6 @@ function orderFood(e)
 	}
 	subTotal();
 }
-
 
 $('body').on("keyup mouseup", '.input-qty', function () {
 	var qty = $(this).val();

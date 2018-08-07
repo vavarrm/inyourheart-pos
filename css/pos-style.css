@@ -1,0 +1,72 @@
+body {
+    padding: 5px;
+    background-image: url('/images/header.jpg');
+    background-size: cover; background-position: center;
+}
+.pos-botton{
+    background-image: url('/images/Light_blue_button.png'); background-repeat: no-repeat;
+    background-position: center; background-size: cover
+}
+.bg-header{
+    background-image: url('/images/header.jpg');
+    background-repeat: no-repeat;
+    background-position: center; background-size: cover
+}
+.row.content {height: 765px; }
+.row.content.foodlist img{border-radius: 4px}
+.panel-total{
+    height:auto; padding: 5px;width: 100%;
+}
+.theme-bg{
+    background-color:#2A3F54!important;color: white   ;
+}
+.sidenav {
+    background-color: #f1f1f1;
+    height: auto;
+}
+.food-list{
+    cursor: pointer;
+}
+/* On small screens, set height to 'auto' for the grid */
+@media only screen
+and (min-width: 768px)
+and (max-width: 1024px)
+and (-webkit-min-device-pixel-ratio: 1) {
+    .row.content {height: 760px;}
+    .foodlist{height: 705px; overflow-y: auto;}
+    .pro_lists{
+        width: 100%;height: 737px;
+    }
+    .food-order-list{
+        width: 100%;height: 490px; overflow-y: auto;
+    }
+    .list-order{
+        width: 100%;height: auto ;
+    }
+    .list-total{
+        width: 100%;height: 120px;
+        border-top: 2px solid #0099ff  ;
+        background-image: url('/images/bg-total.png'); background-repeat: no-repeat;
+        background-position: center; background-size: cover
+    }
+}
+@media screen and (min-width: 1200px) {
+    .row.content {height: 960px;}
+    .foodlist{height: 900px; overflow-y: auto;}
+    .pro_lists{
+        width: 100%;height:auto;
+    }
+    .food-order-list{
+        width: 100%;height: 690px; overflow-y: auto;
+    }
+    .list-order{
+        width: 100%;height: auto;
+    }
+    .list-total{
+        width: 100%;max-height: 120px;
+        border-top: 2px solid #0099ff  ;
+        background-image: url('/images/bg-total.png'); background-repeat: no-repeat;
+        background-position: center; background-size: cover
+    }
+
+}
