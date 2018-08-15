@@ -53,9 +53,12 @@ if (isset($_SESSION['id'])) {
                         <div class="this-container this-padding-top this-margin-top">
                             <div class="this-container this-padding this-text-black ">
                                 <div class="row">
-									<div >
+									<div class="col-sm-6">
 									  <select class="form-control" id="category-select">
 									  </select>
+									</div>
+									<div class="col-sm-6">
+									  <input type="number" max="999"  class="form-control" id="numberselect">
 									</div>
 									<br>
                                     <div class="col-sm-12">

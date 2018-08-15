@@ -34,6 +34,12 @@ $( document ).ready(function() {
         	},10);
      });
 
+	 $('#delivery_select').bind('change',function(){
+		var value = $(this).val();
+		$('.bill').hidden();
+
+	 })
+	 
     $('#printBillss').click(function () {
         var contents = document.getElementById("print_receipt").innerHTML;
         var frame1 = document.createElement('iframe');
@@ -45,11 +51,11 @@ $( document ).ready(function() {
         frameDoc.document.open();
         frameDoc.document.write('<html><head><title>IN YOUR HEART </title>');
         frameDoc.document.open();
-        frameDoc.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/sihalive-style.css" type="text/css" />');
+        frameDoc.document.write('<link rel="stylesheet" href="/css/sihalive-style.css" type="text/css" />');
         frameDoc.document.write('<link rel="stylesheet" href="/css/css_printer.css" type="text/css" />');
-        frameDoc.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/jquery-ui.min.css" type="text/css" />');
-        frameDoc.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/bootstrap.css" type="text/css" />');
-        frameDoc.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/bootstrap.min.css" type="text/css" />');
+        frameDoc.document.write('<link rel="stylesheet" href="/css/jquery-ui.min.css" type="text/css" />');
+        frameDoc.document.write('<link rel="stylesheet" href="/css/bootstrap.css" type="text/css" />');
+        frameDoc.document.write('<link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />');
         frameDoc.document.write('</head><body>');
         frameDoc.document.write(contents);
         frameDoc.document.write('</body></html>');
@@ -73,11 +79,11 @@ $( document ).ready(function() {
             frameDoc.document.open();
             frameDoc.document.write('<html><head>');
             frameDoc.document.open();
-            frameDoc.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/sihalive-style.css" type="text/css" />');
+            frameDoc.document.write('<link rel="stylesheet" href="/css/sihalive-style.css" type="text/css" />');
             frameDoc.document.write('<link rel="stylesheet" href="/css/css_printer.css" type="text/css" />');
-            frameDoc.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/jquery-ui.min.css" type="text/css" />');
-            frameDoc.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/bootstrap.css" type="text/css" />');
-            frameDoc.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/bootstrap.min.css" type="text/css" />');
+            frameDoc.document.write('<link rel="stylesheet" href="/css/jquery-ui.min.css" type="text/css" />');
+            frameDoc.document.write('<link rel="stylesheet" href="/css/bootstrap.css" type="text/css" />');
+            frameDoc.document.write('<link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />');
             frameDoc.document.write('</head><body style="margin-top: -10px ;padding: 2px!important;">');
             frameDoc.document.write(contents);
             frameDoc.document.write('</body></html>');
@@ -99,8 +105,8 @@ $( document ).ready(function() {
 		{
 			
 			var html =''; 
-			html+='<div class="col-xs-4 col-md-2 col-sm-2 this-padding this-text-blackthis-center">';
-			html+='<label>Number:'+e.number+'</label><br>';
+			html+='<div class="col-xs-2 col-md-3 col-sm-4 this-padding this-text-blackthis-center bill delivery-'+e.delivery+'">';
+			html+='<label>Number:'+e.number+'</label>&nbsp&nbsp';
 			html+='<label>Delivery:'+e.delivery+'</label>';
 			html+= '<div class="">';
 			html+= '<img src="/images/icon/bill.png"class="img-responsive"/>';
@@ -309,11 +315,11 @@ function checkBill(doc)
                                                         var divToPrint=document.getElementById('print_receipt');
                                                         var newWin=window.open('','Print-Window');
                                                         newWin.document.open();
-                                                        newWin.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/sihalive-style.css" type="text/css" />');
+                                                        newWin.document.write('<link rel="stylesheet" href="/css/sihalive-style.css" type="text/css" />');
                                                         newWin.document.write('<link rel="stylesheet" href="/css/css_printer.css" type="text/css" />');
-                                                        newWin.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/jquery-ui.min.css" type="text/css" />');
-                                                        newWin.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/bootstrap.css" type="text/css" />');
-                                                        newWin.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/bootstrap.min.css" type="text/css" />');
+                                                        newWin.document.write('<link rel="stylesheet" href="/css/jquery-ui.min.css" type="text/css" />');
+                                                        newWin.document.write('<link rel="stylesheet" href="/css/bootstrap.css" type="text/css" />');
+                                                        newWin.document.write('<link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />');
                                                         newWin.document.write('' +
                                                             '<html>' +
 															'<body onload="window.print()">'+

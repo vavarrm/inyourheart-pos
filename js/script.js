@@ -17,6 +17,29 @@ $(window).on('load',function(){
 		
 		$('.category-'+id).show();
 	})
+	function padding1(num, length) {
+        for(var len = (num + "").length; len < length; len = num.length) {
+            num = "0" + num;            
+        }
+        return num;
+    }
+	
+	$('#numberselect').keyup(function(e){
+		if(e.keyCode == 13)
+		{
+			var code = padding1($(this).val(),3);
+			if($('*[data-code="'+code+'"]').length >0)
+			{
+				$('.Meals').hide();
+				$('*[data-code="'+code+'"]').show();
+			}else
+			{
+				$('.Meals').show();
+			}
+		}
+	});
+	
+	
 	
 	$('#addOrder').bind('click',function(){
 		if(Meals.length >0)
@@ -152,10 +175,10 @@ function list() {
                     // img="/images/defult.jpg";
                 // }
                 $('#prolist').append(''+
-                    '<div  data-id="'+e.id+'" data-unit_price="'+e.unit_price+'" data-full_name="'+e.full_name+'" class="col-xs-4 col-md-3 col-sm-3 Meals this-padding  this-text-blackthis-center category-'+i+'"' +
+                    '<div  data-id="'+e.id+'" data-unit_price="'+e.unit_price+'" data-code="'+e.code+'" data-full_name="'+e.full_name+'" class="col-xs-4 col-md-3 col-sm-3 Meals this-padding  this-text-blackthis-center category-'+i+'"' +
                     ' onclick="orderFood(this)" >' +
                     '<img onerror="'+"javascript:this.src='/images/default.jpg'"+ '" src="'+ domain_url+'images/menu/'+e.img+'.png" class="img-responsive" />'+
-                    '<div style="height:60px;cursor: pointer;">'+e.full_name+'</div>'+
+                    '<div style="height:60px;cursor: pointer;">'+e.code+e.full_name+'</div>'+
                     '</div>'
                 );
             });
@@ -194,6 +217,7 @@ function orderFood(e)
 	var id = $(e).data('id');
 	var full_name = $(e).data('full_name');
 	var unit_price = $(e).data('unit_price');
+	var code = $(e).data('code');
 	var add_quantity = 0;
 	var qty =1;
 	$(Meals).each(function (i,e) 
@@ -211,7 +235,7 @@ function orderFood(e)
 	{
 		$('#list').append('' +
 			  '<tr  style="font-weight: bold" id="titlerow'+id+'">' +
-			  ' <td style="word-wrap:break-word;word-break:break-all">'+full_name+'</td>' +
+			  ' <td style="word-wrap:break-word;word-break:break-all">'+code+full_name+'</td>' +
 			  ' <td  style="text-align: center"  ><input id="col-qty-'+id+'" data-id="'+id+'"  class="input-qty"  style="width:50px" type="number" min="1" step="1" value="'+qty+'"></td>' +
 			  ' <td style="text-align: center">'+unit_price+'</td>' +
 			  ' <td style="text-align: center" id="col-subtotal-'+id+'" >'+parseFloat(qty * unit_price)+'</td>' +

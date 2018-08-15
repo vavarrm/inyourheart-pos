@@ -74,7 +74,14 @@ if (isset($_SESSION['id'])) {
                                 <a href="/">
                                     <i class="fa fa-arrow-circle-left" style="font-size:24px" onclick="w3_close()"></i>
                                 </a>
-                                 Customer  </h4>
+                                 Customer&nbsp&nbsp
+								 Delivery:
+								 <select style="color:black" id="delivery_select">
+									<option  value="all" selected>show all</option>
+									<option value="yes">yes</option>
+									<option value="no">no</option>
+								 </select>
+							</h4>
                         </div>
                         <div class="this-container this-padding-top this-margin-top">
                             <div class="this-container this-padding this-text-black ">
