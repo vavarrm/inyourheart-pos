@@ -16,8 +16,14 @@ var discount ;
 var pay_change; 
 $( document ).ready(function() {
 
+<<<<<<< HEAD
     $('#printBill').click(function () {
         var divToPrint=document.getElementById('bill');
+=======
+    $('#printBill').click(function (e) {
+		e.preventDefault();
+        var divToPrint=document.getElementById('print_receipt');
+>>>>>>> 0c74a17b06967dfd235a8dc297c5ae24726216c1
         var newWin=window.open('','Print-Window');
         newWin.document.open();
         newWin.document.write('<link rel="stylesheet" href="/css/sihalive-style.css" type="text/css" />');
@@ -38,7 +44,44 @@ $( document ).ready(function() {
         	},10);
      });
 
+<<<<<<< HEAD
     /* not yet use print function*/
+=======
+	 $('#delivery_select').bind('change',function(){
+		var value = $(this).val();
+		$('.bill').hidden();
+
+	 })
+	 
+    $('#printBillss').click(function () {
+        var contents = document.getElementById("print_receipt").innerHTML;
+        var frame1 = document.createElement('iframe');
+        frame1.name = "frame1";
+        frame1.style.position = "absolute";
+        frame1.style.top = "-1000000px";
+        //document.body.appendChild(frame1);
+        var frameDoc = frame1.contentWindow ? frame1.contentWindow : frame1.contentDocument.document ? frame1.contentDocument.document : frame1.contentDocument;
+        frameDoc.document.open();
+        frameDoc.document.write('<html><head><title>IN YOUR HEART </title>');
+        frameDoc.document.open();
+        frameDoc.document.write('<link rel="stylesheet" href="/css/sihalive-style.css" type="text/css" />');
+        frameDoc.document.write('<link rel="stylesheet" href="/css/css_printer.css" type="text/css" />');
+        frameDoc.document.write('<link rel="stylesheet" href="/css/jquery-ui.min.css" type="text/css" />');
+        frameDoc.document.write('<link rel="stylesheet" href="/css/bootstrap.css" type="text/css" />');
+        frameDoc.document.write('<link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />');
+        frameDoc.document.write('</head><body>');
+        frameDoc.document.write(contents);
+        frameDoc.document.write('</body></html>');
+        frameDoc.document.close();
+        setTimeout(function () {
+            window.frames["frame1"].focus();
+            window.frames["frame1"].print();
+            document.body.removeChild(frame1);
+            self.close();
+        }, 500);
+        return false;
+    });
+>>>>>>> 0c74a17b06967dfd235a8dc297c5ae24726216c1
     function printBill(){
             var contents = document.getElementById("print_receipt").innerHTML;
             var frame1 = document.createElement('iframe');
@@ -50,11 +93,11 @@ $( document ).ready(function() {
             frameDoc.document.open();
             frameDoc.document.write('<html><head>');
             frameDoc.document.open();
-            frameDoc.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/sihalive-style.css" type="text/css" />');
+            frameDoc.document.write('<link rel="stylesheet" href="/css/sihalive-style.css" type="text/css" />');
             frameDoc.document.write('<link rel="stylesheet" href="/css/css_printer.css" type="text/css" />');
-            frameDoc.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/jquery-ui.min.css" type="text/css" />');
-            frameDoc.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/bootstrap.css" type="text/css" />');
-            frameDoc.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/bootstrap.min.css" type="text/css" />');
+            frameDoc.document.write('<link rel="stylesheet" href="/css/jquery-ui.min.css" type="text/css" />');
+            frameDoc.document.write('<link rel="stylesheet" href="/css/bootstrap.css" type="text/css" />');
+            frameDoc.document.write('<link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />');
             frameDoc.document.write('</head><body style="margin-top: -10px ;padding: 2px!important;">');
              frameDoc.document.write('');
             frameDoc.document.write(contents);
@@ -77,8 +120,14 @@ $( document ).ready(function() {
 		{
 			
 			var html =''; 
+<<<<<<< HEAD
 			html+='<div class="col-xs-4 col-md-2 col-sm-2 this-text-blackthis-center">';
 
+=======
+			html+='<div class="col-xs-2 col-md-3 col-sm-4 this-padding this-text-blackthis-center bill delivery-'+e.delivery+'">';
+			html+='<label>Number:'+e.number+'</label>&nbsp&nbsp';
+			html+='<label>Delivery:'+e.delivery+'</label>';
+>>>>>>> 0c74a17b06967dfd235a8dc297c5ae24726216c1
 			html+= '<div class="">';
 			html+= '<div class="list-total  " style="min-height: 100px">';
             html+='<span class="badge this-blue" >No:'+e.number+'</span>';
@@ -265,6 +314,7 @@ function checkBill(doc)
 												'pay_change' : 	pay_change,
 												'discount' : 	discount,
 											};
+
 											$.ajax({
 												url : checkBillApi,
 												type : 'post', 
@@ -273,6 +323,8 @@ function checkBill(doc)
 												data : JSON.stringify(data),
 												success : function(result) 
 												{
+													console.log(result);
+												
 													$('#dialog-alert p').text(result.message);
 													$( "#dialog-confirm" ).dialog( "close" );
 													if(result.status =="200")
@@ -345,31 +397,3 @@ function checkBill(doc)
 	});
 	return false;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

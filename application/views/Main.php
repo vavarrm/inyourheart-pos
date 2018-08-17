@@ -47,7 +47,36 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
 
 
+<<<<<<< HEAD
             </div>
+=======
+                    <div class="col-sm-12 this-margin-top " id="product">
+                        <div  class="this-bar-item this-metro-dark-red this-large this-margin-left ">
+                            <h4 style="font-size:20px;margin-top: -5px"> <i class="fa fa-navicon"></i> Product  </h4>
+                        </div>
+                        <div class="this-container this-padding-top this-margin-top">
+                            <div class="this-container this-padding this-text-black ">
+                                <div class="row">
+									<div class="col-sm-6">
+									  <select class="form-control" id="category-select">
+									  </select>
+									</div>
+									<div class="col-sm-6">
+									  <input type="number" max="999"  class="form-control" id="numberselect">
+									</div>
+									<br>
+                                    <div class="col-sm-12">
+                                        <div  id="prolist"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-5 col-md-5 col-sm-5 bg-white this-border-left this-right this-padding-0"
+                     style="right:0;position: absolute">
+                    <div class="this-container this-border-bottom this-padding-0 this-center " style="margin: 0px">
+>>>>>>> 0c74a17b06967dfd235a8dc297c5ae24726216c1
 
             <br>
             <div class="col-sm-12 this-padding-0 pro_lists  ">
@@ -117,8 +146,38 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="col-xs-4 col-md-4 col-sm-4 this-border-right">
                         <h4 class="this-bar-item"><i class="fa fa-check-square w3-xxxlarge" id="addOrder" style="font-size: 30px;cursor: pointer;"></i></h4>
                     </div>
+<<<<<<< HEAD
                     <div class="col-xs-4 col-md-4 col-sm-4 this-border-right ">
                         <h4 class="this-bar-item"><i class="fa fa-money w3-xxxlarge" style="font-size: 30px"></i></h4>
+=======
+                    <div class="this-container this-border-bottom this-pale-blue this-padding  " >
+                        <div  class="this-large this-left this-padding ">
+							NUMBER ：
+							<select name="number">
+							</select>
+							<span id="result-number"></span>
+							Delivery：
+							<select name="delivery">
+								<option value="no">No</option>
+								<option value="yes">Yes</option>
+							</select>
+						</div>
+                    </div>
+                    <div class="this-container" style="min-height: 70%;height: 540px; overflow:scroll;padding: 0px">
+                        <table class="table" >
+                            <thead>
+								<tr class="this-metro-dark-red">
+									<th >Name</th>
+									<th>QTY</th>
+									<th >Price</th>
+									<th >SubTotal</th>
+									<th >Action</th>
+								</tr>
+							</thead>
+							<tbody id="list">
+                            </tbody>
+						</table>
+>>>>>>> 0c74a17b06967dfd235a8dc297c5ae24726216c1
                     </div>
                     <div class="col-xs-4 col-md-4 col-sm-4 this-border-right ">
                         <h4 class="this-bar-item"><i class="fa fa-print w3-xxxlarge" style="font-size: 30px"></i></h4>
@@ -128,6 +187,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         </div>
     </div>
+<<<<<<< HEAD
     <div id="dialog-confirm" title="confirm" style="display:none;">
         <p>Confirm Cancel meal</p>
     </div>
@@ -175,6 +235,63 @@ fclose($handle); // note 3
         $('#total-khr').text(billjson.body.data.info.total_riel);
 
     }
+=======
+	<div id="dialog-confirm" title="confirm" style="display:none;">
+		<p>Confirm Cancel meal</p>
+	</div>
+	<div id="dialog-alert" title="alert" style="display:none;">
+		<p></p>
+	</div>
+</section>
+
+<!-- Latest compiled JavaScript -->
+
+<script>
+
+	var billjson = '<?php echo $billjson ?>';
+	var menulist ={};
+	var numberlist ={};
+	var categorylist ={};
+	var  Meals = new Array();
+	var add_more = false;
+	var  result_code ='<?php echo $code ?>';
+	if(billjson!="")
+	{
+		billjson = JSON.parse(billjson);
+	}
+	if(typeof billjson =='object')
+	{
+		add_more = true;
+	
+		$.each(billjson.body.data.list, function(i,e){
+			$('#list').append('' +
+			  '<tr  style="font-weight: bold" class="this-metro-light-blue" id="titlerow'+e.me_id+'">' +
+			  ' <td style="word-wrap:break-word;word-break:break-all">'+e.full_name+'</td>' +
+			  ' <td  style="text-align: center"  ><input id="col-qty-'+e.me_id+'" data-id="'+e.me_id+'"  class="input-qty"  style="width:50px" type="number" min="1" step="1" value="'+e.quantity+'"></td>' +
+			  ' <td style="text-align: center">'+e.unit_price+'</td>' +
+			  ' <td style="text-align: center" id="col-subtotal-'+e.me_id+'" >'+parseFloat(e.quantity * e.unit_price)+'</td>' +
+			  ' <td onclick="cancelItem('+e.id+','+"'"+e.code+"'"+')"  ><i class="fa fa-trash this-text-red" ' +
+			  '  style="font-size:20px;cursor:pointer "' +
+			  '</td>' +
+			  ' </tr>'
+			);
+			Meals.push(
+				{
+					"me_id":e.me_id,
+					"unit_price":e.unit_price,
+					"original_price":e.original_price,
+					"quantity":e.quantity,
+					"id":e.id
+				}
+			);
+		})
+		$('#total').text(billjson.body.data.info.total_usd);
+		$('#total-khr').text(billjson.body.data.info.total_riel);
+		$('#result-number').text(billjson.body.data.info.number);
+		$('select[name=number]').hide();
+		$('select[name=delivery]').val(billjson.body.data.info.delivery).prop('disabled', true);
+	}
+>>>>>>> 0c74a17b06967dfd235a8dc297c5ae24726216c1
 </script>
 <script src="/js/script.js"></script>
 </body>

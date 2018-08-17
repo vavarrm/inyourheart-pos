@@ -74,7 +74,14 @@ if (isset($_SESSION['id'])) {
                                 <a href="/">
                                     <i class="fa fa-arrow-circle-left" style="font-size:24px" onclick="w3_close()"></i>
                                 </a>
-                                 Customer  </h4>
+                                 Customer&nbsp&nbsp
+								 Delivery:
+								 <select style="color:black" id="delivery_select">
+									<option  value="all" selected>show all</option>
+									<option value="yes">yes</option>
+									<option value="no">no</option>
+								 </select>
+							</h4>
                         </div>
                         <div class="this-container this-padding-top this-margin-top">
                             <div class="this-container this-padding this-text-black ">
@@ -133,8 +140,9 @@ if (isset($_SESSION['id'])) {
                                            min="0"
                                            ng-model="txtpayinputusd"
                                            step="0.01"
-                                           type="number"  >
-
+                                           type="number"  
+										   stringToNumber
+									>
                                 </div>
                             </div>
                             <div class="col-md-12 payriel paydiv this-padding-0" style="display:none;">
@@ -145,7 +153,7 @@ if (isset($_SESSION['id'])) {
                                            value="0" name="payriel"
                                            min="0" step="100"
                                            ng-model="txtpayinputreil"
-                                           type="number" style="border: none;border-radius: 0px!important;"  >
+                                           type="number" style="border: none;border-radius: 0px!important;" stringToNumber >
                                 </div>
                                 <span id="payRiel"></span>
                             </div>
@@ -185,10 +193,11 @@ if (isset($_SESSION['id'])) {
 		<p>Confirm Check Bill</p>
 	</div>
 	<div id="dialog-alert" title="alert" style="display:none;">
+		<p></p>
 	</div>
 </section>
 <script src="/js/customer.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="/js/angular.min.js"></script>
 <script>
     $('#txtdis').append('0.0');
     $('#dis').on('change', function() {
@@ -196,9 +205,23 @@ if (isset($_SESSION['id'])) {
     });
     var app = angular.module('myApp', []);
     app.controller('myCtrl', function($scope) {
-        $scope.txtpayinputusd = "0.0";
-        $scope.txtpayinputreil = "0.0";
+        $scope.txtpayinputusd = 0.0;
+        $scope.txtpayinputreil = 0.0;
     });
+	app.directive('stringToNumber', function() {
+	  return {
+		require: 'ngModel',
+		link: function(scope, element, attrs, ngModel) {
+		  ngModel.$parsers.push(function(value) {
+			return '' + value;
+		  });
+		  ngModel.$formatters.push(function(value) {
+			return parseFloat(value);
+		  });
+		}
+	  };
+	});
+
 </script>
 </body>
 </html>
