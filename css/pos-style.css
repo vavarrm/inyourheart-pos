@@ -86,6 +86,9 @@ and (-webkit-min-device-pixel-ratio: 1) {
         cursor: pointer;
         height: 55px;
     }
+    .panelFoods{
+        height: 180px!important;
+    }
 
 }
 @media screen and (min-width: 1200px) {
@@ -110,6 +113,9 @@ and (-webkit-min-device-pixel-ratio: 1) {
         font-size: 13px!important;
         cursor: pointer;
         height: 80px;
+    }
+    .panelFoods{
+        height: 210px!important;
     }
 
 }

@@ -2,10 +2,8 @@ var getMenuListApi =domain_url+"Api/Api/getMenu";
 var getBillForCodeApi =domain_url+"Api/Api/getBillForCode";
 var delMealsApi =domain_url+"Api/Api/delMeals";
 var addOrderApi =domain_url+"Api/Api/addOrder";
-var addMoreOrderApi =domain_url+"Api/Api/addMoreOrder";
 
 $(window).on('load',function(){
-<<<<<<< HEAD
     list();
     $('#category-select').bind('change',function(e){
         event.preventDefault();
@@ -84,109 +82,6 @@ $(window).on('load',function(){
             });
         }
     })
-=======
-	list();
-	$('#category-select').bind('change',function(e){
-		event.preventDefault();
-		var id =$(this).val();
-		if(id=="all")
-		{
-			return false;
-		}
-		$('.Meals').hide();
-		
-		$('.category-'+id).show();
-	})
-	function padding1(num, length) {
-        for(var len = (num + "").length; len < length; len = num.length) {
-            num = "0" + num;            
-        }
-        return num;
-    }
-	
-	$('#numberselect').keyup(function(e){
-		if(e.keyCode == 13)
-		{
-			var code = padding1($(this).val(),3);
-			if($('*[data-code="'+code+'"]').length >0)
-			{
-				$('.Meals').hide();
-				$('*[data-code="'+code+'"]').show();
-			}else
-			{
-				$('.Meals').show();
-			}
-		}
-	});
-	
-	
-	
-	$('#addOrder').bind('click',function(){
-		if(Meals.length >0)
-		{
-			var apiurl ;
-			var number;
-			if(add_more ==true)
-			{	
-				apiurl = addMoreOrderApi;
-				number =$('#result-number').text();
-			}else{
-				apiurl = addOrderApi;
-				number = $("select[name=number]").val();
-			}
-			$( "#dialog-confirm" ).text('new order');
-			$( "#dialog-confirm" ).dialog({
-				buttons:{
-					ok: function() 
-					{
-						var data = 
-						{
-							"number" 	:number,
-							"delivery"  :$('select[name=delivery]').val(),
-							"meals"  :Meals,
-							"code"	:result_code
-						};
-						$.ajax({
-						  url : apiurl,
-						  type : 'post', 
-						  dataType : 'json', 
-						  contentType:"application/x-www-form-urlencoded",
-						  data : JSON.stringify(data),
-						  success : function(result) {
-							$('#dialog-alert p').text(result.message);
-							if(result.status =="200")
-							{
-								$( "#dialog-alert" ).dialog({
-									buttons:
-									{
-										ok: function() {
-										$( "#dialog-confirm" ).dialog( "close" );
-										$(this).dialog( "close" );
-										window.location.reload();
-									}}
-								});
-							}else
-							{
-								$( "#dialog-alert" ).dialog({
-									buttons:
-									{
-										ok: function() {
-										$( "#dialog-confirm" ).dialog( "close" );
-										$(this).dialog( "close" );
-									}}
-								});
-							}
-						  },
-						});
-					},
-					cancel :function(){
-						$(this).dialog( "close" );
-					}
-				}
-			});
-		}
-	})
->>>>>>> 0c74a17b06967dfd235a8dc297c5ae24726216c1
 });
 
 function cancelItem(id,code)
@@ -194,44 +89,24 @@ function cancelItem(id,code)
 	$( "#dialog-confirm" ).dialog({
 		buttons:{
 			ok: function() {
-				var data = 
+				var data =
 				{
 					"code" :code,
 					"meals"  :[{"id":id}]
 				};
 				$.ajax({
 				  url : delMealsApi,
-				  type : 'post', 
-				  dataType : 'json', 
+				  type : 'post',
+				  dataType : 'json',
 				  contentType:"application/x-www-form-urlencoded",
 				  data : JSON.stringify(data),
 				  success : function(result) {
-					$('#dialog-alert p').text(result.message);
 					if(result.status =="200")
 					{
-<<<<<<< HEAD
 						window.location.reload();
-=======
-						$( "#dialog-alert" ).dialog({
-							buttons:
-							{
-								ok: function() {
-								$( "#dialog-confirm" ).dialog( "close" );
-								$(this).dialog( "close" );
-								window.location.reload();
-							}}
-						});
->>>>>>> 0c74a17b06967dfd235a8dc297c5ae24726216c1
 					}else
 					{
-						$( "#dialog-alert" ).dialog({
-							buttons:
-							{
-								ok: function() {
-								$( "#dialog-confirm" ).dialog( "close" );
-								$(this).dialog( "close" );
-							}}
-						})
+
 					}
 				  },
 				});
@@ -253,22 +128,15 @@ function list() {
             $.each(item.list,function (j,e)
 			{
                 $('#prolist').append(''+
-<<<<<<< HEAD
                     '<div  data-id="'+e.id+'" data-unit_price="'+e.unit_price+'" data-full_name="'+e.full_name+'" class=" Meals  category-'+i+'"' +
                     ' onclick="orderFood(this)" >' +
                     '<div class="  col-xs-2 col-md-3 col-sm-4 this-animate-opacity " >'+
-					'<div class="well  well-sm food-list this-hover-opacity ">'+
+					'<div class="well  well-sm food-list this-hover-opacity panelFoods ">'+
                     '<span class="label label-danger" style="position: absolute">Code : '+e.id+'</span>'+
                          '<img onerror="'+"javascript:this.src='/images/default.jpg'"+ '" src="http://inyourheart.beta.com/images/menu/'+e.img+'.png" class="img-responsive this-animate-opacity" />'+
                          '<div class="foodName">'+e.full_name+'</div>'+
 					'</div>'+
                     '</div>'+
-=======
-                    '<div  data-id="'+e.id+'" data-unit_price="'+e.unit_price+'" data-code="'+e.code+'" data-full_name="'+e.full_name+'" class="col-xs-4 col-md-3 col-sm-3 Meals this-padding  this-text-blackthis-center category-'+i+'"' +
-                    ' onclick="orderFood(this)" >' +
-                    '<img onerror="'+"javascript:this.src='/images/default.jpg'"+ '" src="'+ domain_url+'images/menu/'+e.img+'.png" class="img-responsive" />'+
-                    '<div style="height:60px;cursor: pointer;">'+e.code+e.full_name+'</div>'+
->>>>>>> 0c74a17b06967dfd235a8dc297c5ae24726216c1
                     '</div>'
                 );
             });
@@ -299,15 +167,15 @@ function list() {
 }
 
     //event drap  ondragstart="dragStart(event)" draggable="true" id="dragtarget"
-function orderFood(e) 
+function orderFood(e)
 {
 	var id = $(e).data('id');
 	var full_name = $(e).data('full_name');
 	var unit_price = $(e).data('unit_price');
-	var code = $(e).data('code');
 	var add_quantity = 0;
 	var qty =1;
-	$(Meals).each(function (i,e) 
+	console.log(Meals);
+	$(Meals).each(function (i,e)
 	{
 		if(e.me_id == id)
 		{
@@ -321,17 +189,11 @@ function orderFood(e)
 	if(add_quantity ==0)
 	{
 		$('#list').append('' +
-<<<<<<< HEAD
 			  '<tr  id="titlerow'+id+'">' +
 			  ' <td style="word-wrap:break-word;word-break:break-all">'+full_name+'</td>' +
 			  ' <td  style="text-align: center"  ><input id="col-qty-'+id+'" data-id="'+id+'"  class="input-qty' +
 			' form-control input-sm"' +
 			'  style="width:50px" type="number" min="1" step="1" value="'+qty+'"></td>' +
-=======
-			  '<tr  style="font-weight: bold" id="titlerow'+id+'">' +
-			  ' <td style="word-wrap:break-word;word-break:break-all">'+code+full_name+'</td>' +
-			  ' <td  style="text-align: center"  ><input id="col-qty-'+id+'" data-id="'+id+'"  class="input-qty"  style="width:50px" type="number" min="1" step="1" value="'+qty+'"></td>' +
->>>>>>> 0c74a17b06967dfd235a8dc297c5ae24726216c1
 			  ' <td style="text-align: center">'+unit_price+'</td>' +
 			  ' <td style="text-align: center" id="col-subtotal-'+id+'" >'+parseFloat(qty * unit_price)+'</td>' +
 			  ' <td onclick="deletedOrder('+id+')"  ><span class="label label-danger"><i class="fa fa-trash-o"' +
@@ -347,6 +209,7 @@ function orderFood(e)
 				"quantity":1
 			}
 		);
+		console.log(Meals);
 	}
 	subTotal();
 }

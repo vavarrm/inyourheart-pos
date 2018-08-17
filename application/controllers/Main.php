@@ -18,21 +18,20 @@ class Main extends CI_Controller {
 		{
 			$data = array("code" => $code);                                                                    
 			$data_string = json_encode($data);                                                                                   
-			$ch = curl_init($_SERVER['API_HOST'].'getBillForCode');                                                                      
-			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
-				'Content-Type: application/json',                                                                                            
-			));                                                                                                                   
+			$ch = curl_init($_SERVER['API_HOST'].getBillForCode);
+			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+				'Content-Type: application/json',
+			));
 			$result = curl_exec($ch);
 		}
         $cat=array(
             'cat'=>$data,
             'pro'=>$pro,
             'Noinv'=>$NoInvoice,
-			'billjson'	=>$result,
-			'code'		=>$code
+			'billjson'	=>$result
         );
 		$this->load->view('App',$cat);
 	}
