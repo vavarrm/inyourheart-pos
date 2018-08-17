@@ -17,7 +17,7 @@ var pay_change;
 $( document ).ready(function() {
 
     $('#printBill').click(function () {
-        var divToPrint=document.getElementById('print_receipt');
+        var divToPrint=document.getElementById('bill');
         var newWin=window.open('','Print-Window');
         newWin.document.open();
         newWin.document.write('<link rel="stylesheet" href="/css/sihalive-style.css" type="text/css" />');
@@ -26,13 +26,19 @@ $( document ).ready(function() {
         newWin.document.write('<link rel="stylesheet" href="/css/bootstrap.css" type="text/css" />');
         newWin.document.write('<link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />');
         newWin.document.write('' +
-			'<html><body onload="window.print()">'+divToPrint.innerHTML+'</body></html>');
+			'<html><body onload="window.print()">' +
+			'<div class="this-left" > <img src="/images/icon/logo.png"class="img-responsive"' +
+			' style="width:70px"></div>' +
+			' <center>' +
+			'<div  style="margin-top:-60px;font-weight: bold"><h4>YOUR HEART</h4><p>បេះដូងអ្នក</p></div></center><br/>' +
+			''+divToPrint.innerHTML+' <center><h5> Thank You!  </h5></center></body></html>');
         newWin.document.close();
         setTimeout(function(){
             newWin.close();
         	},10);
      });
 
+    /* not yet use print function*/
     function printBill(){
             var contents = document.getElementById("print_receipt").innerHTML;
             var frame1 = document.createElement('iframe');
@@ -50,6 +56,7 @@ $( document ).ready(function() {
             frameDoc.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/bootstrap.css" type="text/css" />');
             frameDoc.document.write('<link rel="stylesheet" href="http://pos.dev.com/css/bootstrap.min.css" type="text/css" />');
             frameDoc.document.write('</head><body style="margin-top: -10px ;padding: 2px!important;">');
+             frameDoc.document.write('');
             frameDoc.document.write(contents);
             frameDoc.document.write('</body></html>');
             frameDoc.document.close();
@@ -290,7 +297,10 @@ function checkBill(doc)
                                                         newWin.document.write('' +
                                                             '<html>' +
 															'<body onload="window.print()">'+
-															'<center><h3> IN YOUR HEART  </h3></center>'
+                                                            '<div class="this-left" > <img src="/images/icon/logo.png"class="img-responsive"' +
+                                                            ' style="width:70px"></div>' +
+                                                            ' <center>' +
+                                                            '<div  style="margin-top:-60px;font-weight: bold"><h4>YOUR HEART</h4><p>បេះដូងអ្នក</p></div></center><br/>' +
 															         +divToPrint.innerHTML+
 															'</body>' +
 															'</html>');

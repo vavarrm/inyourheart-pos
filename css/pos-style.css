@@ -1,8 +1,4 @@
-body {
-    padding: 5px;
-    background-image: url('/images/header.jpg');
-    background-size: cover; background-position: center;
-}
+
 .pos-botton{
     background-image: url('/images/Light_blue_button.png'); background-repeat: no-repeat;
     background-position: center; background-size: cover
@@ -12,8 +8,8 @@ body {
     background-repeat: no-repeat;
     background-position: center; background-size: cover
 }
-.row.content {height: 765px; }
-.row.content.foodlist img{border-radius: 4px}
+.row.content {height: 760px; }
+
 .panel-total{
     height:auto; padding: 5px;width: 100%;
 }
@@ -27,46 +23,93 @@ body {
 .food-list{
     cursor: pointer;
 }
+.foodlist::-webkit-scrollbar {
+    width: 10px;
+}
+.foodlist::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+.foodlist::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+.food-order-list::-webkit-scrollbar {
+    width: 10px;
+}
+.food-order-list::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+.food-order-list::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+/* report saler==*/
+.food-order-list-report::-webkit-scrollbar {
+    width: 10px;
+}
+.food-order-list-report::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+.food-order-list-report::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+
 /* On small screens, set height to 'auto' for the grid */
 @media only screen
-and (min-width: 768px)
+and (min-width: 765px)
 and (max-width: 1024px)
 and (-webkit-min-device-pixel-ratio: 1) {
     .row.content {height: 760px;}
     .foodlist{height: 705px; overflow-y: auto;}
+    .food-order-list-report{height: 530px; overflow-y: auto;}
     .pro_lists{
-        width: 100%;height: 737px;
+        width: 100%;height: 735px;
     }
     .food-order-list{
-        width: 100%;height: 490px; overflow-y: auto;
+        width: 100%;height: 480px; overflow-y: auto;
     }
     .list-order{
         width: 100%;height: auto ;
     }
     .list-total{
         width: 100%;height: 120px;
-        border-top: 2px solid #0099ff  ;
+
         background-image: url('/images/bg-total.png'); background-repeat: no-repeat;
         background-position: center; background-size: cover
     }
+    .foodName{
+        font-size: 10px!important;
+        cursor: pointer;
+        height: 55px;
+    }
+
 }
 @media screen and (min-width: 1200px) {
-    .row.content {height: 960px;}
-    .foodlist{height: 900px; overflow-y: auto;}
+    .row.content {height: 940px;}
+    .foodlist{height: 870px; overflow-y: auto;}
+    .food-order-list-report{height: 700px; overflow-y: auto;}
     .pro_lists{
         width: 100%;height:auto;
     }
     .food-order-list{
-        width: 100%;height: 690px; overflow-y: auto;
+        width: 100%;height: 670px; overflow-y: auto;
     }
     .list-order{
         width: 100%;height: auto;
     }
     .list-total{
         width: 100%;max-height: 120px;
-        border-top: 2px solid #0099ff  ;
         background-image: url('/images/bg-total.png'); background-repeat: no-repeat;
         background-position: center; background-size: cover
+    }
+    .foodName{
+        font-size: 13px!important;
+        cursor: pointer;
+        height: 80px;
     }
 
 }

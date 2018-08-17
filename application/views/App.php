@@ -17,32 +17,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </head>
 <body class="this-metro-light-blue">
 <div class="container this-padding-0 " >
-    <div class="row content this-padding-0"  style="border-radius: 10px;border: 5px solid #0099ff;">
+    <div class="row content this-padding-0"  style="border-radius: 10px;border: 2px solid #0099ff;">
         <div class="col-sm-12  this-padding-0 bg-header " style="border-bottom: 1px solid #0099ff; " >
             <img src="/images/icon/pos.png" class="img-responsive this-left" style="width: 45px"/>
-            <span class="this-left this-padding" style="font-weight: bold">POS</span>
+            <span class="this-left this-padding" style="font-weight: bold; font-size: 20px">POS YOUR HEART  </span>
             <div class="this-container this-padding this-left">
-                <a href="/app"> <button class="btn bg-header this-left btn-sm this-border"><i class="fa
-                fa-home"></i>Home </button></a>
-                <button class="btn bg-header this-left btn-sm this-border"><i class="fa fa-signal"></i> Report </button>
-                <button class="btn bg-header this-left btn-sm this-border">Category </button>
-                <button class="btn bg-header this-left btn-sm this-border">Category </button>
-                <button class="btn bg-header this-left btn-sm this-border">Category </button>
             </div>
             <div class="this-container this-padding this-right">
                 <span> Admin </span>
                 <span><i class="fa fa-user-circle-o" style="font-size:24px" ></i></span>
             </div>
-
         </div>
-        <div class="col-sm-7 foodlist this-padding-0 this-white " style="border-right: 5px solid #0099ff  ">
+        <div class="col-sm-7 foodlist this-padding-0 this-white " >
             <div class="this-container bg-header this-padding " style="position:relative">
                 <div class="this-left  ">
                     <select class="form-control  " id="category-select">
                     </select>
                 </div>
                 <div class="input-group this-right" style="width: 50%">
-                    <input type="text" class="form-control">
+                    <span class="input-group-addon bg-header">Barcode: </span>
+                    <input type="text" class="form-control" placeholder="#000..">
                      <span class="input-group-addon bg-header"><i class="fa fa-search"></i></span>
                   </div>
             </div>
@@ -52,26 +46,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
         </div>
         <div class="col-sm-5 sidenav hidden-xs this-padding-0 ">
-            <div class="cols-sm-12 this-padding-0 this-center bg-header " style="margin: 0px">
-                <button class="col-xs-3 col-md-3 col-sm-3 btn pos-botton this-padding-0  ">
-                    <h4 class="this-bar-item"><i class="fa fa-search w3-xxxlarge" style="font-size: 20px"></i></h4>
-                </button>
-                <a href="/bill">
-                    <button class="col-xs-3 col-md-3 col-sm-3 btn pos-botton this-padding-0">
-                        <h4 class="this-bar-item"><i class="fa fa-users w3-xxxlarge" style="font-size: 20px"></i></h4>
-                    </button>
+            <div class="cols-sm-12 this-padding-0 this-center " style="margin-top: 5px">
+                <a href="/app">
+                    <div class="col-xs-3 col-md-3 col-sm-3 btn this-metro-dark-blue this-padding-0 " style="border-radius: 10px">
+                        <h5 class="this-bar-item">HOME <i class="fa fa-home w3-xxxlarge" style="font-size:
+                        20px"></i></h5>
+                    </div>
                 </a>
                 <a href="/bill">
-                    <button class="col-xs-3 col-md-3 col-sm-3 btn pos-botton this-padding-0 ">
-                        <h4 class="this-bar-item"><i class="fa fa-user-plus w3-xxxlarge" style="font-size:
-                        20px"></i></h4>
-                    </button>
+                    <div class="col-xs-3 col-md-3 col-sm-3 btn this-metro-green  this-padding-0" style="border-radius: 10px">
+                        <h5 class="this-bar-item">Customer <i class="fa fa-users w3-xxxlarge" style="font-size:
+                        20px"></i></h5>
+                    </div>
+                </a>
+                <a href="/sellreport">
+                    <div class="col-xs-3 col-md-3 col-sm-3 btn this-metro-green  this-padding-0" style="border-radius: 10px">
+                        <h5 class="this-bar-item">Sell Report <i class="fa fa-calendar-check-o w3-xxxlarge"
+                                                             style="font-size:
+                        20px"></i></h5>
+                    </div>
                 </a>
                 <a href="/login">
-                    <button class="col-xs-3 col-md-3 col-sm-3 btn pos-botton this-padding-0 ">
-                        <h4 class="this-bar-item"><i class="fa fa-sign-out w3-xxxlarge" style="font-size:
-                        20px"></i></h4>
-                    </button>
+                    <div class="col-xs-3 col-md-3 col-sm-3 btn this-metro-red  this-padding-0 " style="border-radius:
+                    10px">
+                        <h5 class="this-bar-item">Logout <i class="fa fa-sign-out w3-xxxlarge" style="font-size:
+                        20px"></i></h5>
+                    </div>
                 </a>
             </div>
             <div class="this-container this-padding this-white" >
@@ -86,7 +86,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </select>
                 </div>
             </div>
-            <div class="this-container this-padding-0 food-order-list bg-header">
+            <div class="this-container this-padding-0 food-order-list" style="">
                 <table class="table table-striped list-order" >
                     <thead>
                     <tr class="bg-header this-card ">
@@ -101,7 +101,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </tbody>
                 </table>
             </div>
-            <div class="list-total ">
+            <div class="list-total">
                 <div class="this-container this-border-bottom this-center this-padding " style="margin: 0px;
                 height:70px;position: relative; font-weight: bold">
                     <div class=" this-large col-sm-5">Total Usd： </div>

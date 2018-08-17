@@ -33,7 +33,7 @@ class Main extends CI_Controller {
             'Noinv'=>$NoInvoice,
 			'billjson'	=>$result
         );
-		$this->load->view('Main',$cat);
+		$this->load->view('App',$cat);
 	}
 	public function startOrder($inv){
         $pro=$this->product-> getProduct();
@@ -183,7 +183,9 @@ class Main extends CI_Controller {
     public function bill(){
         $this->load->view('bill');
     }
-
+    public function sellreport(){
+        $this->load->view('TodaySell');
+    }
 
 
 

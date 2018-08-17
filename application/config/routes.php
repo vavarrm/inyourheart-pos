@@ -60,3 +60,4 @@ $route['inv/(:any)'] = 'main/startOrder/$1';
 $route['create_customer'] = 'main/create_customer';
 $route['app'] = 'main/app';
 $route['bill'] = 'main/bill';
+$route['sellreport'] = 'main/sellreport';

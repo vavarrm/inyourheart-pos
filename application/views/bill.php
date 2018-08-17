@@ -14,24 +14,56 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     include ('layout/header.php');
     include('layout/style.php');
     ?>
+    <style>
+        .menu{
+            width: 120px!important;
+        }
+        .btn{
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body class="this-metro-light-blue">
-<div class="container this-padding-0 bg-header " >
+<div class="container this-padding-0  " >
     <div class="row content this-padding-0"  style="border-radius: 10px;border: 5px solid #0099ff; ">
-        <div class="col-sm-12  this-padding-0 bg-header " style="border-bottom: 1px solid #0099ff; " >
+        <div class="this-container  this-padding-0 bg-header " style="border-bottom: 1px solid #0099ff; " >
             <img src="/images/icon/pos.png" class="img-responsive this-left" style="width: 45px"/>
-            <span class="this-left this-padding" style="font-weight: bold">POS</span>
-            <div class="this-container this-padding this-left">
-                <a href="/app"> <button class="btn bg-header this-left btn-sm this-border"><i class="fa
-                fa-home"></i>Home </button></a>
-                <button class="btn bg-header this-left btn-sm this-border"><i class="fa fa-signal"></i> Report </button>
-                <button class="btn bg-header this-left btn-sm this-border">Category </button>
-                <button class="btn bg-header this-left btn-sm this-border">Category </button>
-                <button class="btn bg-header this-left btn-sm this-border">Category </button>
-            </div>
+            <span class="this-padding  this-left" style="font-weight: bold">BILL LISTS </span>
             <div class="this-container this-padding this-right">
                 <span> Admin </span>
                 <span><i class="fa fa-user-circle-o" style="font-size:24px" ></i></span>
+            </div>
+
+            <div class="this-container this-right this-padding" style="margin-top: -20px">
+                    <a href="/app">
+                        <div class="col-xs-3 col-md-3 col-sm-3 btn this-metro-dark-blue this-padding-0 menu "
+                             style="border-radius: 10px">
+                            <h5 >HOME <i class="fa fa-home w3-xxxlarge" style="font-size:
+                        20px"></i></h5>
+                        </div>
+                    </a>
+                    <a href="/bill">
+                        <div class="col-xs-3 col-md-3 col-sm-3 btn this-metro-green  this-padding-0 menu"
+                             style="border-radius: 10px">
+                            <h5 >Customer <i class="fa fa-users w3-xxxlarge" style="font-size:
+                        20px"></i></h5>
+                        </div>
+                    </a>
+                    <a href="/sellreport">
+                        <div class="col-xs-3 col-md-3 col-sm-3 btn this-metro-green  this-padding-0 menu"
+                             style="border-radius: 10px">
+                            <h5>Sell Report <i class="fa fa-calendar-check-o w3-xxxlarge" style="font-size:20px"></i></h5>
+                        </div>
+                   </a>
+                    <a href="/login">
+                        <div class="col-xs-3 col-md-3 col-sm-3 btn this-metro-red  this-padding-0 menu "
+                             style="border-radius:
+                    10px">
+                            <h5 >Logout <i class="fa fa-sign-out w3-xxxlarge" style="font-size:
+                        20px"></i></h5>
+                        </div>
+                    </a>
+
             </div>
 
         </div>
@@ -46,21 +78,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div id="dialog" title="Bill List" class="hidden">
             <div id="print_receipt" ng-app="myApp" ng-controller="myCtrl" >
                 <div class="header_prints">
-                    <span>Code：<span id="bill-code"></span></span><br>
-                    <span>Number：<span id="bill-number"></span></span><br>
-                    <span>Delivery：<span id="bill-delivery"></span></span>
-                    <table class="table  table-dark" id="bill-table">
-                        <thead >
-                        <tr class="this-metro-dark-red">
-                            <th width="55%">Name</th>
-                            <th style="text-align: center;" width="15%">Price</th>
-                            <th style="text-align: center;" width="15%">QTY</th>
-                            <th style="text-align: center;" width="15%">SubTotal</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
+                   <div id="bill">
+                       <span>Code：<span id="bill-code"></span></span><br>
+                       <span>Number：<span id="bill-number"></span></span><br>
+                       <span>Delivery：<span id="bill-delivery"></span></span>
+                       <table class="table  table-dark" id="bill-table">
+                           <thead >
+                           <tr class="this-metro-dark-red">
+                               <th width="55%">Name</th>
+                               <th style="text-align: center;" width="15%">Price</th>
+                               <th style="text-align: center;" width="15%">QTY</th>
+                               <th style="text-align: center;" width="15%">SubTotal</th>
+                           </tr>
+                           </thead>
+                           <tbody>
+                           </tbody>
+                       </table>
+                   </div>
                     <div class="row  " style="margin-top: -10px" >
                         <div class="col-sm-12 this-padding-0" style="font-weight: bold">
                             <div class="col-xs-10 col-md-10 "><label class="this-left"> Discount </label>
@@ -90,7 +124,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                            ng-model="txtpayinputusd"
                                            step="0.01"
                                            type="number"  >
-
                                 </div>
                             </div>
                             <div class="col-md-12 payriel paydiv this-padding-0" style="display:none;">
@@ -134,7 +167,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
             </div>
             <div class="col-sm-12">
-                <div id="printBill"  class="btn btn-danger"> Print </div>
+                <div id="printBill"  class="btn btn-danger"> Print Bill </div>
             </div>
         </div>
         <div id="dialog-confirm" title="confirm" style="display:none;">

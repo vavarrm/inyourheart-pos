@@ -128,12 +128,13 @@ function list() {
             $.each(item.list,function (j,e)
 			{
                 $('#prolist').append(''+
-                    '<div class="  col-xs-4 col-md-3 col-sm-4" >'+
-					'<div class="well  well-sm food-list ">'+
                     '<div  data-id="'+e.id+'" data-unit_price="'+e.unit_price+'" data-full_name="'+e.full_name+'" class=" Meals  category-'+i+'"' +
-					' onclick="orderFood(this)" >' +
-                         '<img onerror="'+"javascript:this.src='/images/default.jpg'"+ '" src="'+ domain_url+'images/menu/'+e.img+'.png" class="img-responsive" />'+
-                         '<div style="height:60px;cursor: pointer;">'+e.full_name+'</div>'+
+                    ' onclick="orderFood(this)" >' +
+                    '<div class="  col-xs-2 col-md-3 col-sm-4 this-animate-opacity " >'+
+					'<div class="well  well-sm food-list this-hover-opacity ">'+
+                    '<span class="label label-danger" style="position: absolute">Code : '+e.id+'</span>'+
+                         '<img onerror="'+"javascript:this.src='/images/default.jpg'"+ '" src="http://inyourheart.beta.com/images/menu/'+e.img+'.png" class="img-responsive this-animate-opacity" />'+
+                         '<div class="foodName">'+e.full_name+'</div>'+
 					'</div>'+
                     '</div>'+
                     '</div>'
